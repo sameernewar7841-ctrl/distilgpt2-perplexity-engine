@@ -31,10 +31,10 @@ function generateProceduralNoiseDataUrl(): string {
         const v3 = pseudoNoise(x * 0.2 + 20, y * 0.2 + 20) * 0.25;
         const combined = Math.min(255, Math.floor(((v1 + v2 + v3) / 1.75) * 255));
 
-        data[idx] = combined;     // R
-        data[idx + 1] = combined; // G (used by shader .y)
-        data[idx + 2] = combined; // B
-        data[idx + 3] = 255;      // Alpha
+        data[idx] = combined;
+        data[idx + 1] = combined; // green channel sampled by shader
+        data[idx + 2] = combined;
+        data[idx + 3] = 255;
       }
     }
 
@@ -55,7 +55,6 @@ export function VantaClouds2({ enabled = true }: VantaClouds2Props) {
 
     let destroyed = false;
 
-    // Attach THREE to window for Vanta
     if (typeof window !== 'undefined') {
       (window as any).THREE = THREE;
     }
@@ -73,21 +72,22 @@ export function VantaClouds2({ enabled = true }: VantaClouds2Props) {
 
         const proceduralNoiseUrl = generateProceduralNoiseDataUrl();
 
+        // Tuned to monochrome obsidian mist per design system
         effectRef.current = CLOUDS2({
           el: vantaRef.current,
           THREE: THREE,
-          mouseControls: true,
-          touchControls: true,
+          mouseControls: false,
+          touchControls: false,
           gyroControls: false,
           minHeight: 200.0,
           minWidth: 200.0,
           scale: 1.0,
           scaleMobile: 2.0,
-          backgroundColor: 0x030712,
-          skyColor: 0x0a192f,
-          cloudColor: 0x172a45,
-          lightColor: 0x38bdf8,
-          speed: 0.75,
+          backgroundColor: 0x09090b, // #09090B
+          skyColor: 0x09090b,        // #09090B
+          cloudColor: 0x18181b,      // #18181B (deep matte charcoal)
+          lightColor: 0x2a2a30,      // #2A2A30 (subtle atmospheric mist highlight)
+          speed: 0.45,
           texturePath: proceduralNoiseUrl || '/gallery/noise.png',
         });
 
@@ -113,15 +113,17 @@ export function VantaClouds2({ enabled = true }: VantaClouds2Props) {
   }, [enabled]);
 
   return (
-    <div className="fixed inset-0 -z-20 pointer-events-none overflow-hidden select-none">
+    <div className="absolute top-0 left-0 right-0 h-[520px] -z-10 pointer-events-none overflow-hidden select-none">
+      {/* Vanta Canvas Container */}
       <div
         ref={vantaRef}
         className={`absolute inset-0 transition-opacity duration-1000 ${
-          enabled && isLoaded ? 'opacity-85' : 'opacity-0'
+          enabled && isLoaded ? 'opacity-70' : 'opacity-0'
         }`}
       />
-      <div className="absolute inset-0 bg-gradient-to-b from-zinc-950/60 via-zinc-950/75 to-zinc-950" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-cyan-900/15 via-transparent to-transparent" />
+
+      {/* Seamless bottom fade mask into #09090B canvas */}
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#09090B]/40 to-[#09090B]" />
     </div>
   );
 }

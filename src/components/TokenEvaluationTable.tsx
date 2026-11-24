@@ -6,7 +6,6 @@ import {
   type TokenEvaluation,
   type PerplexityBreakdown,
 } from '@/lib/perplexity-math';
-import { Sparkles, Layers, CheckCircle2, Sigma, Hash, Zap } from 'lucide-react';
 
 interface TokenEvaluationTableProps {
   tokens: TokenEvaluation[];
@@ -22,212 +21,166 @@ export function TokenEvaluationTable({
   if (!tokens || tokens.length === 0) return null;
 
   return (
-    <div className="rounded-2xl border border-white/10 bg-black/40 backdrop-blur-xl p-6 md:p-8 shadow-2xl relative overflow-hidden transition-all duration-300 hover:border-cyan-500/30">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-white/10">
-        <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-blue-500/10 border border-blue-500/30 text-blue-300 mb-2">
-            <Layers className="w-3.5 h-3.5" />
-            <span>Conditional Probability Breakdown</span>
-            <span className="text-white/40">•</span>
-            <span className="font-mono text-zinc-300">{inferenceTimeMs}ms execution</span>
-          </div>
-          <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-white">
-            Token-by-Token Probability & Perplexity Evaluator
-          </h2>
-          <p className="text-sm text-zinc-400 mt-1">
-            Explicit tokenization with whitespace markers (<code className="text-cyan-300 font-mono">␣</code> = space, <code className="text-cyan-300 font-mono">↵</code> = newline), probabilities, inverse probabilities, and 3-step geometric mean.
-          </p>
+    <div className="border border-[#26262B] bg-[#141417] rounded-xl p-6 md:p-8 space-y-6">
+      {/* Section Header */}
+      <div className="flex items-center justify-between pb-6 border-b border-[#26262B]">
+        <div className="flex items-center gap-3">
+          <span className="font-mono text-xs text-[#FF5A1F] font-bold">02</span>
+          <h3 className="text-xl md:text-2xl heading-editorial">
+            Token-by-Token Probabilities
+          </h3>
+        </div>
+        <div className="font-mono text-xs text-[#9A9AA3]">
+          Inference: <span className="text-[#F4F4F5] font-tabular">{inferenceTimeMs}ms</span>
         </div>
       </div>
 
-      {/* Visual Token Ribbon */}
-      <div className="mt-6 p-4 rounded-xl border border-white/10 bg-zinc-950/60">
-        <div className="text-xs font-mono uppercase tracking-wider text-zinc-400 mb-3 flex items-center justify-between">
-          <span>Decoded Sequence Tokens:</span>
-          <span className="text-zinc-500 text-[11px]">Hover or inspect token chips</span>
+      {/* Decoded Sequence Ribbon */}
+      <div className="p-4 rounded-lg border border-[#26262B] bg-[#09090B]">
+        <div className="text-[11px] font-mono uppercase tracking-wider text-[#9A9AA3] mb-3">
+          Decoded Token Sequence (Spaces = <span className="text-[#F4F4F5]">␣</span>, Newlines = <span className="text-[#F4F4F5]">↵</span>)
         </div>
         <div className="flex flex-wrap gap-2">
-          {tokens.map((t) => {
-            const isHighSurprise = t.prob < 0.05;
-            const isMediumSurprise = t.prob >= 0.05 && t.prob < 0.25;
-
-            return (
-              <div
-                key={t.index}
-                className={`group relative flex items-center gap-2 px-3 py-1.5 rounded-lg border text-xs font-mono transition-all ${
-                  isHighSurprise
-                    ? 'border-rose-500/50 bg-rose-950/30 text-rose-200'
-                    : isMediumSurprise
-                    ? 'border-amber-500/40 bg-amber-950/30 text-amber-200'
-                    : 'border-cyan-500/40 bg-cyan-950/30 text-cyan-200'
-                }`}
-              >
-                <span className="text-[10px] text-zinc-400 font-bold">#{t.index}</span>
-                <span className="font-semibold bg-white/10 px-1.5 py-0.5 rounded text-white tracking-wide">
-                  {t.token}
-                </span>
-                <span className="text-[11px] opacity-80">
-                  {(t.prob * 100).toFixed(1)}%
-                </span>
-              </div>
-            );
-          })}
+          {tokens.map((t) => (
+            <div
+              key={t.index}
+              className="inline-flex items-center gap-2 px-2.5 py-1 rounded border border-[#26262B] bg-[#141417] text-xs font-mono font-tabular text-[#F4F4F5]"
+            >
+              <span className="text-[10px] text-[#9A9AA3]">#{t.index}</span>
+              <span className="font-semibold text-[#F4F4F5] bg-[#09090B] px-1 py-0.5 rounded border border-[#26262B]">
+                {t.token}
+              </span>
+              <span className="text-[11px] text-[#9A9AA3]">
+                {(t.prob * 100).toFixed(1)}%
+              </span>
+            </div>
+          ))}
         </div>
       </div>
 
-      {/* Detailed Token Table */}
-      <div className="mt-6 overflow-x-auto rounded-xl border border-white/10 bg-zinc-950/50">
+      {/* Detailed Technical Table */}
+      <div className="overflow-x-auto rounded-lg border border-[#26262B] bg-[#09090B]">
         <table className="w-full text-left text-xs border-collapse">
           <thead>
-            <tr className="border-b border-white/10 bg-white/5 text-zinc-400 uppercase font-mono tracking-wider">
-              <th className="py-2.5 px-4 w-14 text-center">#</th>
-              <th className="py-2.5 px-4 min-w-[140px]">Decoded Token</th>
-              <th className="py-2.5 px-4 min-w-[150px]">
+            <tr className="border-b border-[#26262B] bg-[#141417] text-[#9A9AA3] uppercase font-mono tracking-wider">
+              <th className="py-3 px-4 w-12 text-center">#</th>
+              <th className="py-3 px-4 min-w-[140px]">Decoded Token</th>
+              <th className="py-3 px-4 min-w-[160px]">
                 Probability <span className="font-serif italic lowercase font-normal">P</span>
               </th>
-              <th className="py-2.5 px-4 min-w-[150px]">
+              <th className="py-3 px-4 min-w-[160px]">
                 Inverse Prob <span className="font-serif italic lowercase font-normal">1 / P</span>
               </th>
-              <th className="py-2.5 px-4 min-w-[140px]">-ln(P) Loss</th>
-              <th className="py-2.5 px-4 min-w-[140px]">Surprise Level</th>
+              <th className="py-3 px-4 min-w-[140px]">-ln(P) Loss</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-white/5 font-mono">
-            {tokens.map((t) => {
-              const isHighSurprise = t.prob < 0.05;
-              const isMediumSurprise = t.prob >= 0.05 && t.prob < 0.25;
-
-              return (
-                <tr key={t.index} className="hover:bg-white/[0.03] transition-colors">
-                  <td className="py-3 px-4 text-center text-zinc-500 font-bold">{t.index}</td>
-                  <td className="py-3 px-4">
-                    <span className="inline-block bg-white/10 border border-white/15 px-2 py-0.5 rounded text-white font-semibold">
-                      {t.token}
-                    </span>
-                  </td>
-                  <td className="py-3 px-4">
-                    <span className="text-cyan-300 font-medium">
-                      {formatSignificantDigits(t.prob)}
-                    </span>
-                    <span className="text-[11px] text-zinc-500 ml-2">
-                      ({(t.prob * 100).toFixed(1)}%)
-                    </span>
-                  </td>
-                  <td className="py-3 px-4">
-                    <span className="px-2 py-0.5 rounded bg-amber-500/10 text-amber-300 border border-amber-500/20">
-                      {formatSignificantDigits(t.inverseProb)}
-                    </span>
-                  </td>
-                  <td className="py-3 px-4 text-zinc-400">
-                    {formatSignificantDigits(-t.logProb)}
-                  </td>
-                  <td className="py-3 px-4">
-                    {isHighSurprise ? (
-                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold bg-rose-500/15 border border-rose-500/30 text-rose-300">
-                        High Surprise
-                      </span>
-                    ) : isMediumSurprise ? (
-                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold bg-amber-500/15 border border-amber-500/30 text-amber-300">
-                        Moderate
-                      </span>
-                    ) : (
-                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold bg-emerald-500/15 border border-emerald-500/30 text-emerald-300">
-                        Expected
-                      </span>
-                    )}
-                  </td>
-                </tr>
-              );
-            })}
+          <tbody className="divide-y divide-[#26262B] font-mono font-tabular">
+            {tokens.map((t) => (
+              <tr key={t.index} className="hover:bg-[#141417]/50 transition-colors">
+                <td className="py-3 px-4 text-center text-[#9A9AA3]">{t.index}</td>
+                <td className="py-3 px-4">
+                  <span className="inline-block bg-[#141417] border border-[#26262B] px-2 py-0.5 rounded text-[#F4F4F5] font-semibold">
+                    {t.token}
+                  </span>
+                </td>
+                <td className="py-3 px-4 text-[#F4F4F5]">
+                  <span>{formatSignificantDigits(t.prob)}</span>
+                  <span className="text-[11px] text-[#9A9AA3] ml-2">
+                    ({(t.prob * 100).toFixed(1)}%)
+                  </span>
+                </td>
+                <td className="py-3 px-4 text-[#F4F4F5]">
+                  <span className="px-2 py-0.5 rounded bg-[#141417] border border-[#26262B]">
+                    {formatSignificantDigits(t.inverseProb)}
+                  </span>
+                </td>
+                <td className="py-3 px-4 text-[#9A9AA3]">
+                  {formatSignificantDigits(-t.logProb)}
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
 
-      {/* 3-Step Perplexity Calculation Breakdown Cards */}
-      <div className="mt-8 space-y-6">
-        <div className="flex items-center gap-2">
-          <Sparkles className="w-4 h-4 text-cyan-400" />
-          <h3 className="text-base font-semibold text-white tracking-tight">
-            3-Step Perplexity Calculation Breakdown
-          </h3>
+      {/* 3-Step Perplexity Calculation Breakdown */}
+      <div className="pt-2 space-y-4">
+        <div className="text-xs font-mono uppercase tracking-wider text-[#9A9AA3]">
+          3-Step Geometric Mean Breakdown
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
           {/* Step 1 */}
-          <div className="rounded-xl border border-white/10 bg-white/[0.03] p-4 flex flex-col justify-between">
+          <div className="border border-[#26262B] bg-[#09090B] rounded-lg p-4 flex flex-col justify-between">
             <div>
-              <div className="text-[11px] font-mono uppercase tracking-wider text-cyan-400 font-semibold mb-1">
-                Step 1 • Product of All 1/P
+              <div className="text-[11px] font-mono text-[#9A9AA3] mb-1">
+                01 / PRODUCT OF 1/P
               </div>
-              <div className="text-xs text-zinc-400 mb-3">
-                Accumulated inverse probabilities <span className="font-mono text-zinc-200">∏ (1 / Pᵢ)</span>
+              <div className="text-xs text-[#9A9AA3] font-mono mb-3">
+                ∏ (1 / Pᵢ) = eˢ
               </div>
             </div>
-            <div className="bg-black/50 border border-white/5 rounded-lg p-3">
-              <div className="text-xl md:text-2xl font-mono font-bold text-cyan-200 break-all">
+            <div>
+              <div className="text-xl md:text-2xl font-mono font-bold font-tabular text-[#F4F4F5] break-all">
                 {breakdown.productInversePFormatted}
               </div>
-              <div className="text-[10px] text-zinc-500 font-mono mt-1">
+              <div className="text-[10px] text-[#9A9AA3] font-mono mt-1 font-tabular">
                 Log Sum S = {formatSignificantDigits(breakdown.sumNegLogProb)}
               </div>
             </div>
           </div>
 
           {/* Step 2 */}
-          <div className="rounded-xl border border-white/10 bg-white/[0.03] p-4 flex flex-col justify-between">
+          <div className="border border-[#26262B] bg-[#09090B] rounded-lg p-4 flex flex-col justify-between">
             <div>
-              <div className="text-[11px] font-mono uppercase tracking-wider text-blue-400 font-semibold mb-1">
-                Step 2 • Token Count (N)
+              <div className="text-[11px] font-mono text-[#9A9AA3] mb-1">
+                02 / TOKEN COUNT
               </div>
-              <div className="text-xs text-zinc-400 mb-3">
-                Total evaluated tokens in sentence
+              <div className="text-xs text-[#9A9AA3] font-mono mb-3">
+                Evaluated tokens (N)
               </div>
             </div>
-            <div className="bg-black/50 border border-white/5 rounded-lg p-3">
-              <div className="text-xl md:text-2xl font-mono font-bold text-blue-200">
+            <div>
+              <div className="text-xl md:text-2xl font-mono font-bold font-tabular text-[#F4F4F5]">
                 {breakdown.tokenCount}
               </div>
-              <div className="text-[10px] text-zinc-500 font-mono mt-1">
-                Average Negative Log-Likelihood = {formatSignificantDigits(breakdown.averageLoss)}
+              <div className="text-[10px] text-[#9A9AA3] font-mono mt-1 font-tabular">
+                Loss (S/N) = {formatSignificantDigits(breakdown.averageLoss)}
               </div>
             </div>
           </div>
 
-          {/* Step 3 */}
-          <div className="rounded-xl border border-cyan-500/40 bg-gradient-to-br from-cyan-950/40 to-blue-950/40 p-4 flex flex-col justify-between shadow-lg shadow-cyan-950/50">
+          {/* Step 3 - Final Output Highlighted in #FF5A1F */}
+          <div className="border border-[#FF5A1F]/40 bg-[#09090B] rounded-lg p-4 flex flex-col justify-between">
             <div>
-              <div className="text-[11px] font-mono uppercase tracking-wider text-emerald-400 font-semibold mb-1">
-                Step 3 • Geometric Mean (N-th Root)
+              <div className="text-[11px] font-mono text-[#FF5A1F] font-bold mb-1">
+                03 / GEOMETRIC MEAN (PERPLEXITY)
               </div>
-              <div className="text-xs text-zinc-300 mb-3">
-                Perplexity = <span className="font-mono text-white">(Product)^(1/N) = e^(loss)</span>
+              <div className="text-xs text-[#9A9AA3] font-mono mb-3">
+                (Product)^(1/N) = e^(loss)
               </div>
             </div>
-            <div className="bg-black/60 border border-cyan-500/30 rounded-lg p-3">
-              <div className="text-2xl md:text-3xl font-mono font-black text-white">
+            <div>
+              <div className="text-2xl md:text-3xl font-mono font-black font-tabular text-[#FF5A1F]">
                 {breakdown.perplexityFormatted}
               </div>
-              <div className="text-[10px] text-emerald-400 font-mono mt-1">
-                Sentence Perplexity
+              <div className="text-[10px] text-[#9A9AA3] font-mono mt-1">
+                Final Evaluated Perplexity
               </div>
             </div>
           </div>
         </div>
 
-        {/* Plain-English Interpretation */}
-        <div className="rounded-xl border border-emerald-500/30 bg-emerald-950/20 p-4 flex items-start gap-3.5">
-          <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
-          <div>
-            <div className="text-xs font-semibold text-emerald-300 uppercase tracking-wider font-mono">
-              Plain-English Interpretation
-            </div>
-            <div className="text-sm text-zinc-200 mt-1 font-medium">
-              {breakdown.interpretation}
-            </div>
-            <div className="text-xs text-zinc-400 mt-1">
-              A lower perplexity score indicates that the sequence aligns strongly with the language model's learned distribution of natural language.
-            </div>
+        {/* Plain-English Interpretation Callout (Matte #141417 with 2px #FF5A1F left border) */}
+        <div className="border border-[#26262B] border-l-2 border-l-[#FF5A1F] bg-[#141417] p-4 rounded-lg">
+          <div className="text-xs font-mono uppercase tracking-wider text-[#FF5A1F] mb-1">
+            Plain-English Interpretation
+          </div>
+          <div className="text-sm font-medium text-[#F4F4F5]">
+            {breakdown.interpretation}
+          </div>
+          <div className="text-xs text-[#9A9AA3] mt-1">
+            Lower perplexity means the model assigned higher probability to this exact sequence. Higher perplexity indicates greater surprise.
           </div>
         </div>
       </div>

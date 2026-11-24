@@ -1,124 +1,141 @@
 'use client';
 
 import React from 'react';
-import { SpotlightCard } from './react-bits/SpotlightCard';
-import { BookOpen, ShieldCheck, Binary, Calculator, Award, ArrowRight } from 'lucide-react';
 
 export function MathTheoryExplorer() {
   return (
     <div className="space-y-6">
-      {/* Title banner */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-white/10">
+      {/* Editorial Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-[#26262B]">
         <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 mb-2">
-            <BookOpen className="w-3.5 h-3.5" />
-            <span>Mathematical Foundations</span>
-            <span className="text-white/40">•</span>
-            <span className="font-mono text-zinc-300">Underlying Algorithms &amp; Proofs</span>
+          <div className="flex items-center gap-3">
+            <span className="font-mono text-xs text-[#FF5A1F] font-bold">05</span>
+            <h2 className="text-xl md:text-2xl heading-editorial">
+              Mathematical Formulations &amp; Algorithms
+            </h2>
           </div>
-          <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-white">
-            The Complete Math &amp; Algorithm Specification
-          </h2>
-          <p className="text-sm text-zinc-400 mt-1 max-w-3xl">
-            A formal mathematical breakdown of the 5 algorithms implemented in this client-side language model runner.
+          <p className="text-xs font-mono text-[#9A9AA3] mt-1">
+            Formal technical breakdown of the 5 algorithms implemented client-side in this language model runner.
           </p>
+        </div>
+
+        <div className="font-mono text-xs text-[#9A9AA3]">
+          Model: <span className="text-[#F4F4F5]">DistilGPT-2 (q8 ONNX)</span>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* Math 1 */}
-        <SpotlightCard className="p-6">
-          <div className="flex items-center gap-2 text-cyan-400 font-mono text-xs font-bold uppercase tracking-wider mb-2">
-            <span className="w-6 h-6 rounded-md bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center">1</span>
-            <span>Sequence Preparation &amp; Forward Pass</span>
+      {/* Lenis-style Numbered 2-Column Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {/* 01 */}
+        <div className="border border-[#26262B] bg-[#141417] rounded-xl p-6 flex flex-col justify-between">
+          <div>
+            <div className="flex items-center justify-between mb-3">
+              <span className="font-mono text-xs font-bold text-[#FF5A1F]">01</span>
+              <span className="text-[11px] font-mono uppercase tracking-wider text-[#9A9AA3]">Sequence Preparation</span>
+            </div>
+            <h3 className="text-base font-semibold text-[#F4F4F5] heading-editorial mb-2">
+              Context Prepending &amp; Forward Pass
+            </h3>
+            <p className="text-xs font-mono text-[#9A9AA3] leading-relaxed mb-4">
+              Prepends GPT-2's <code className="text-[#F4F4F5] bg-[#09090B] px-1 py-0.5 rounded border border-[#26262B]">&lt;|endoftext|&gt;</code> token (ID <code className="text-[#FF5A1F]">50256</code>) so token #1 has causal prior context to be evaluated against:
+            </p>
           </div>
-          <h3 className="text-lg font-bold text-white mb-2">Prepending Context &amp; Tensor Dimensions</h3>
-          <p className="text-xs text-zinc-400 leading-relaxed mb-4">
-            Prepend GPT-2's <code className="text-cyan-300 font-mono">&lt;|endoftext|&gt;</code> token (ID <code className="text-cyan-300 font-mono">50256</code>) to the encoded tokens so even the first word has a causal prior context to be predicted from:
-          </p>
-          <div className="bg-black/60 rounded-xl p-4 border border-white/10 font-mono text-xs text-cyan-200 overflow-x-auto">
-            <div className="text-zinc-400 mb-1">// Prepended token sequence</div>
+          <div className="bg-[#09090B] rounded-lg p-3.5 border border-[#26262B] font-mono text-xs text-[#F4F4F5] space-y-1">
+            <div className="text-[#9A9AA3]">// Prepended token sequence</div>
             <div>ids = [50256, t₁, t₂, ..., t_N],  n = N + 1</div>
-            <div className="text-zinc-400 mt-2">// Tensor shapes passed to DistilGPT-2 (q8 ONNX)</div>
-            <div>input_ids: int64 [1, n]</div>
-            <div>attention_mask: int64 [1, n] (all ones)</div>
-            <div>output.logits: float32 [1, n, V], where V = 50,257</div>
+            <div className="text-[#9A9AA3] pt-1">// Tensor shapes (int64)</div>
+            <div>input_ids: [1, n], attention_mask: [1, n]</div>
+            <div>output.logits: [1, n, V], where V = 50,257</div>
           </div>
-        </SpotlightCard>
+        </div>
 
-        {/* Math 2 */}
-        <SpotlightCard className="p-6">
-          <div className="flex items-center gap-2 text-blue-400 font-mono text-xs font-bold uppercase tracking-wider mb-2">
-            <span className="w-6 h-6 rounded-md bg-blue-500/10 border border-blue-500/20 flex items-center justify-center">2</span>
-            <span>Numerically Stable Log-Softmax</span>
+        {/* 02 */}
+        <div className="border border-[#26262B] bg-[#141417] rounded-xl p-6 flex flex-col justify-between">
+          <div>
+            <div className="flex items-center justify-between mb-3">
+              <span className="font-mono text-xs font-bold text-[#FF5A1F]">02</span>
+              <span className="text-[11px] font-mono uppercase tracking-wider text-[#9A9AA3]">Numerical Stability</span>
+            </div>
+            <h3 className="text-base font-semibold text-[#F4F4F5] heading-editorial mb-2">
+              Log-Space Softmax
+            </h3>
+            <p className="text-xs font-mono text-[#9A9AA3] leading-relaxed mb-4">
+              Subtracts the maximum logit <span className="text-[#F4F4F5]">m</span> prior to exponentiation to guarantee all exponents are <span className="text-[#F4F4F5]">≤ 0</span>, eliminating IEEE 754 float overflow:
+            </p>
           </div>
-          <h3 className="text-lg font-bold text-white mb-2">Overflow Prevention in Log-Space</h3>
-          <p className="text-xs text-zinc-400 leading-relaxed mb-4">
-            Subtract the maximum logit <span className="font-mono text-zinc-200">m</span> before exponentiating. This guarantees exponents are always <span className="font-mono text-zinc-200">≤ 0</span>, preventing IEEE 754 floating-point overflow:
-          </p>
-          <div className="bg-black/60 rounded-xl p-4 border border-white/10 font-mono text-xs text-blue-200 overflow-x-auto space-y-1.5">
+          <div className="bg-[#09090B] rounded-lg p-3.5 border border-[#26262B] font-mono text-xs text-[#F4F4F5] space-y-1">
             <div>m = max_j (z_j)</div>
-            <div>log Z = m + ln( ∑_{'{'}j=0{'}'}^{'{'}V-1{'}'} exp(z_j - m) )</div>
+            <div>log Z = m + ln( ∑ exp(z_j - m) )</div>
             <div>ln P(j) = z_j - log Z</div>
             <div>P(j) = exp( ln P(j) )</div>
           </div>
-        </SpotlightCard>
+        </div>
 
-        {/* Math 3 */}
-        <SpotlightCard className="p-6">
-          <div className="flex items-center gap-2 text-emerald-400 font-mono text-xs font-bold uppercase tracking-wider mb-2">
-            <span className="w-6 h-6 rounded-md bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center">3</span>
-            <span>Per-Token Conditional Probability</span>
+        {/* 03 */}
+        <div className="border border-[#26262B] bg-[#141417] rounded-xl p-6 flex flex-col justify-between">
+          <div>
+            <div className="flex items-center justify-between mb-3">
+              <span className="font-mono text-xs font-bold text-[#FF5A1F]">03</span>
+              <span className="text-[11px] font-mono uppercase tracking-wider text-[#9A9AA3]">Autoregressive Indexing</span>
+            </div>
+            <h3 className="text-base font-semibold text-[#F4F4F5] heading-editorial mb-2">
+              Per-Token Conditional Probability
+            </h3>
+            <p className="text-xs font-mono text-[#9A9AA3] leading-relaxed mb-4">
+              Because a causal language model predicts the <em>next</em> token at each step, the conditional probability of token <span className="text-[#F4F4F5]">t_i</span> originates from logits at position <span className="text-[#F4F4F5]">i - 1</span>:
+            </p>
           </div>
-          <h3 className="text-lg font-bold text-white mb-2">Causal Autoregressive Alignment</h3>
-          <p className="text-xs text-zinc-400 leading-relaxed mb-4">
-            Because a causal language model predicts the <em>next</em> token at each step, the conditional probability of token <span className="font-mono text-zinc-200">t_i</span> (for <span className="font-mono text-zinc-200">i = 1...N</span>) originates from the logits slice at position <span className="font-mono text-zinc-200">i - 1</span>:
-          </p>
-          <div className="bg-black/60 rounded-xl p-4 border border-white/10 font-mono text-xs text-emerald-200 overflow-x-auto space-y-1.5">
+          <div className="bg-[#09090B] rounded-lg p-3.5 border border-[#26262B] font-mono text-xs text-[#F4F4F5] space-y-1">
             <div>P_i = P(t_i | 50256, t₁, ..., t_{'{'}i-1{'}'})</div>
-            <div className="text-zinc-400 text-[11px] mt-2">// Logit slice indexing:</div>
-            <div>Slice at pos 0 → predicts token t₁ (index #1)</div>
-            <div>Slice at pos i - 1 → predicts token t_i (index #i)</div>
-            <div>Inverse Probability = 1 / P_i</div>
+            <div className="text-[#9A9AA3] pt-1">// Index mapping:</div>
+            <div>Slice pos 0   → predicts user token t₁</div>
+            <div>Slice pos i-1 → predicts user token t_i</div>
+            <div>Inverse Prob  = 1 / P_i</div>
           </div>
-        </SpotlightCard>
+        </div>
 
-        {/* Math 4 */}
-        <SpotlightCard className="p-6">
-          <div className="flex items-center gap-2 text-amber-400 font-mono text-xs font-bold uppercase tracking-wider mb-2">
-            <span className="w-6 h-6 rounded-md bg-amber-500/10 border border-amber-500/20 flex items-center justify-center">4</span>
-            <span>Perplexity in Log Space</span>
+        {/* 04 */}
+        <div className="border border-[#26262B] bg-[#141417] rounded-xl p-6 flex flex-col justify-between">
+          <div>
+            <div className="flex items-center justify-between mb-3">
+              <span className="font-mono text-xs font-bold text-[#FF5A1F]">04</span>
+              <span className="text-[11px] font-mono uppercase tracking-wider text-[#9A9AA3]">Loss &amp; Geometric Mean</span>
+            </div>
+            <h3 className="text-base font-semibold text-[#F4F4F5] heading-editorial mb-2">
+              Perplexity in Log Space
+            </h3>
+            <p className="text-xs font-mono text-[#9A9AA3] leading-relaxed mb-4">
+              Direct multiplication of <span className="text-[#F4F4F5]">∏ (1 / P_i)</span> overflows for longer sequences. The engine accumulates negative log-likelihoods instead:
+            </p>
           </div>
-          <h3 className="text-lg font-bold text-white mb-2">Geometric Mean &amp; Cross-Entropy Loss</h3>
-          <p className="text-xs text-zinc-400 leading-relaxed mb-4">
-            Directly multiplying <span className="font-mono text-zinc-200">∏ (1 / P_i)</span> overflows floating-point numbers on longer texts. The engine accumulates negative log-likelihoods instead:
-          </p>
-          <div className="bg-black/60 rounded-xl p-4 border border-white/10 font-mono text-xs text-amber-200 overflow-x-auto space-y-1.5">
+          <div className="bg-[#09090B] rounded-lg p-3.5 border border-[#26262B] font-mono text-xs text-[#F4F4F5] space-y-1">
             <div>S = ∑_{'{'}i=1{'}'}^{'{'}N{'}'} -ln(P_i)</div>
-            <div>Product = exp(S)  // equivalent to ∏ (1 / P_i)</div>
-            <div>Loss = S / N       // average negative log-likelihood</div>
-            <div>Perplexity = exp(Loss) = exp(S / N) = (Product)^(1/N)</div>
+            <div>Product = exp(S)</div>
+            <div>Average Loss = S / N</div>
+            <div>Perplexity = exp(S / N) = (Product)^(1/N)</div>
           </div>
-        </SpotlightCard>
+        </div>
       </div>
 
-      {/* Math 5 */}
-      <SpotlightCard className="p-6">
-        <div className="flex items-center gap-2 text-purple-400 font-mono text-xs font-bold uppercase tracking-wider mb-2">
-          <span className="w-6 h-6 rounded-md bg-purple-500/10 border border-purple-500/20 flex items-center justify-center">5</span>
-          <span>Zero-Cost Next-Token Ranking</span>
+      {/* 05 - Full Width Architectural Block */}
+      <div className="border border-[#26262B] bg-[#141417] rounded-xl p-6">
+        <div className="flex items-center justify-between mb-3">
+          <span className="font-mono text-xs font-bold text-[#FF5A1F]">05</span>
+          <span className="text-[11px] font-mono uppercase tracking-wider text-[#9A9AA3]">Zero-Cost Continuation</span>
         </div>
-        <h3 className="text-lg font-bold text-white mb-2">Position n - 1 Logit Softmax &amp; Relative Proportion</h3>
-        <p className="text-xs text-zinc-400 leading-relaxed mb-4">
-          Rather than initiating a second forward pass, the model extracts the logits vector at position <span className="font-mono text-zinc-200">n - 1</span> (where <span className="font-mono text-zinc-200">n = N + 1</span>), performs log-softmax across all 50,257 vocabulary entries, sorts descending, and normalizes the top 8 candidates against the #1 prediction:
+        <h3 className="text-base font-semibold text-[#F4F4F5] heading-editorial mb-2">
+          Position n - 1 Logit Softmax &amp; Next-Token Ranking
+        </h3>
+        <p className="text-xs font-mono text-[#9A9AA3] leading-relaxed mb-4">
+          Rather than initiating a separate forward pass, the engine slices the logits at position <span className="text-[#F4F4F5]">n - 1</span> (where <span className="text-[#F4F4F5]">n = N + 1</span>), performs log-softmax across all 50,257 vocabulary entries, sorts descending, and normalizes the top 8 candidates against the rank #1 prediction:
         </p>
-        <div className="bg-black/60 rounded-xl p-4 border border-white/10 font-mono text-xs text-purple-200 overflow-x-auto space-y-1.5">
+        <div className="bg-[#09090B] rounded-lg p-3.5 border border-[#26262B] font-mono text-xs text-[#F4F4F5] space-y-1">
           <div>Next-Token Distribution: P(j | 50256, t₁, ..., t_N) for j ∈ {'{'}0, ..., 50256{'}'}</div>
-          <div>Rank Candidates: Sort descending by P(j), select Top 8 (ranks k = 1...8)</div>
+          <div>Rank Candidates: Sort descending by P(j), select Top 8 (k = 1...8)</div>
           <div>Exact Percentage: (P_k × 100).toFixed(1) + "%"</div>
-          <div>Relative Proportion to Top #1: Relative Ratio = P_k / P₁</div>
+          <div>Relative Proportion to Rank #1: Ratio = P_k / P₁</div>
         </div>
-      </SpotlightCard>
+      </div>
     </div>
   );
 }

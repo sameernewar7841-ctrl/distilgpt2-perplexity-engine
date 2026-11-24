@@ -12,22 +12,20 @@ interface ShinyTextProps {
 export function ShinyText({
   text,
   disabled = false,
-  speed = 5,
+  speed = 4,
   className = '',
 }: ShinyTextProps) {
-  const animationDuration = `${speed}s`;
-
   return (
     <span
-      className={`inline-block bg-clip-text text-transparent bg-gradient-to-r from-zinc-200 via-white to-zinc-400 ${
+      className={`inline-block font-inherit text-[#F4F4F5] ${
         disabled ? '' : 'animate-shine'
       } ${className}`}
       style={{
         backgroundImage:
-          'linear-gradient(120deg, rgba(255, 255, 255, 0) 40%, rgba(255, 255, 255, 0.8) 50%, rgba(255, 255, 255, 0) 60%)',
+          'linear-gradient(120deg, #F4F4F5 0%, #FFFFFF 50%, #9A9AA3 100%)',
         backgroundSize: '200% 100%',
         WebkitBackgroundClip: 'text',
-        animationDuration,
+        animationDuration: `${speed}s`,
       }}
     >
       {text}

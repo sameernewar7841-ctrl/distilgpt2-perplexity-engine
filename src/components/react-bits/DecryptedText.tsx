@@ -5,37 +5,26 @@ import React, { useEffect, useState } from 'react';
 interface DecryptedTextProps {
   text: string;
   speed?: number;
-  maxIterations?: number;
-  sequential?: boolean;
-  revealDirection?: 'start' | 'end' | 'center';
-  useOriginalCharsOnly?: boolean;
   characters?: string;
   className?: string;
-  parentClassName?: string;
-  encryptedClassName?: string;
-  animateOn?: 'view' | 'hover';
 }
 
 export function DecryptedText({
   text,
-  speed = 40,
-  maxIterations = 10,
-  characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!@#$%^&*()_+~`|}{[]:;?><,./-=',
+  speed = 35,
+  characters = '0123456789ABCDEF!@#$*&',
   className = '',
 }: DecryptedTextProps) {
   const [displayText, setDisplayText] = useState<string>(text);
-  const [isHovering, setIsHovering] = useState<boolean>(false);
 
   useEffect(() => {
-    let interval: NodeJS.Timeout;
     let iteration = 0;
-
-    interval = setInterval(() => {
+    const interval = setInterval(() => {
       setDisplayText(() =>
         text
           .split('')
           .map((char, index) => {
-            if (char === ' ') return ' ';
+            if (char === ' ' || char === '/' || char === '-') return char;
             if (index < iteration) {
               return text[index];
             }
@@ -52,13 +41,10 @@ export function DecryptedText({
     }, speed);
 
     return () => clearInterval(interval);
-  }, [text, speed, characters, isHovering]);
+  }, [text, speed, characters]);
 
   return (
-    <span
-      className={`font-mono ${className}`}
-      onMouseEnter={() => setIsHovering(prev => !prev)}
-    >
+    <span className={`font-mono text-[#F4F4F5] tracking-tight ${className}`}>
       {displayText}
     </span>
   );

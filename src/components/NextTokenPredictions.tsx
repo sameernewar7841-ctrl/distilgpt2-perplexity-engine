@@ -2,7 +2,7 @@
 
 import React from 'react';
 import type { NextTokenCandidate } from '@/lib/perplexity-math';
-import { Compass, CornerDownRight, TrendingUp, BarChart3, Plus } from 'lucide-react';
+import { Plus } from 'lucide-react';
 
 interface NextTokenPredictionsProps {
   candidates: NextTokenCandidate[];
@@ -18,112 +18,100 @@ export function NextTokenPredictions({
   if (!candidates || candidates.length === 0) return null;
 
   return (
-    <div className="rounded-2xl border border-white/10 bg-black/40 backdrop-blur-xl p-6 md:p-8 shadow-2xl relative overflow-hidden transition-all duration-300 hover:border-cyan-500/30">
-      {/* Decorative gradient corner glow */}
-      <div className="absolute -bottom-24 -left-24 w-72 h-72 bg-gradient-to-tr from-cyan-500/15 via-blue-500/10 to-transparent rounded-full blur-3xl pointer-events-none" />
-
+    <div className="border border-[#26262B] bg-[#141417] rounded-xl p-6 md:p-8 space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-white/10">
-        <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 mb-2">
-            <Compass className="w-3.5 h-3.5" />
-            <span>Zero-Cost Forward Pass Reuse</span>
-            <span className="text-white/40">•</span>
-            <span className="font-mono text-zinc-300">Position n-1 Softmax</span>
-          </div>
-          <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-white flex items-center gap-3">
-            Next-Token Prediction Engine
-          </h2>
-          <p className="text-sm text-zinc-400 mt-1 max-w-2xl">
-            Derived directly from the final logit slice of the same forward pass. Shows the top 8 ranked continuation tokens, exact probabilities, and relative proportions to #1.
-          </p>
+      <div className="flex items-center justify-between pb-6 border-b border-[#26262B]">
+        <div className="flex items-center gap-3">
+          <span className="font-mono text-xs text-[#FF5A1F] font-bold">03</span>
+          <h3 className="text-xl md:text-2xl heading-editorial">
+            Next-Token Predictions
+          </h3>
+        </div>
+        <div className="font-mono text-xs text-[#9A9AA3]">
+          Slice: <span className="text-[#F4F4F5]">Position n-1 Logits</span>
         </div>
       </div>
 
-      {/* Current Context Banner */}
-      <div className="mt-6 p-3.5 rounded-xl border border-white/10 bg-zinc-950/70 flex items-center gap-3 text-xs font-mono">
-        <span className="text-zinc-500 uppercase tracking-wider font-semibold">Context Prompt:</span>
-        <span className="text-cyan-300 font-semibold truncate">"{evaluatedSentence}"</span>
-        <CornerDownRight className="w-3.5 h-3.5 text-zinc-500 shrink-0 ml-auto" />
+      {/* Context Banner */}
+      <div className="p-3.5 rounded-lg border border-[#26262B] bg-[#09090B] flex items-center justify-between gap-3 text-xs font-mono">
+        <div className="flex items-center gap-2 truncate">
+          <span className="text-[#9A9AA3] uppercase">Context Prompt:</span>
+          <span className="text-[#F4F4F5] font-semibold truncate">"{evaluatedSentence}"</span>
+        </div>
+        <span className="text-[#9A9AA3] text-[11px] shrink-0">Reused single forward pass</span>
       </div>
 
-      {/* Top-8 Ranked Tokens Grid / List */}
-      <div className="mt-6 space-y-3">
+      {/* Top 8 Candidates List */}
+      <div className="space-y-2 font-mono">
         {candidates.map((c) => {
           const isTop1 = c.rank === 1;
 
           return (
             <div
               key={c.rank}
-              className={`p-3.5 rounded-xl border transition-all duration-200 relative overflow-hidden flex flex-col sm:flex-row sm:items-center justify-between gap-3 ${
+              className={`p-3.5 rounded-lg border transition-colors relative overflow-hidden flex flex-col sm:flex-row sm:items-center justify-between gap-3 ${
                 isTop1
-                  ? 'border-cyan-500/50 bg-cyan-950/20 shadow-md shadow-cyan-950/40'
-                  : 'border-white/10 bg-white/[0.02] hover:bg-white/[0.05] hover:border-white/20'
+                  ? 'border-[#FF5A1F]/40 bg-[#09090B]'
+                  : 'border-[#26262B] bg-[#09090B] hover:border-[#383840]'
               }`}
             >
-              {/* Relative Probability Fill Background Bar */}
+              {/* Subtle relative proportion fill bar */}
               <div
-                className={`absolute top-0 bottom-0 left-0 transition-all pointer-events-none opacity-15 ${
-                  isTop1 ? 'bg-cyan-400' : 'bg-blue-400'
-                }`}
+                className="absolute top-0 bottom-0 left-0 bg-[#26262B]/60 pointer-events-none transition-all"
                 style={{ width: `${c.relativeRatio * 100}%` }}
               />
 
-              {/* Left Column: Rank + Token Display */}
+              {/* Left Column: Rank + Token */}
               <div className="flex items-center gap-3 z-10">
                 <span
-                  className={`w-7 h-7 rounded-lg flex items-center justify-center font-mono font-bold text-xs ${
+                  className={`w-6 h-6 rounded flex items-center justify-center font-bold text-xs font-tabular ${
                     isTop1
-                      ? 'bg-cyan-500 text-black shadow-md shadow-cyan-500/30'
-                      : 'bg-white/10 text-zinc-400'
+                      ? 'bg-[#FF5A1F] text-[#09090B]'
+                      : 'bg-[#141417] text-[#9A9AA3] border border-[#26262B]'
                   }`}
                 >
                   #{c.rank}
                 </span>
 
                 <div className="flex items-center gap-2">
-                  <span className="bg-black/60 border border-white/15 px-3 py-1 rounded-lg font-mono text-sm font-semibold text-white tracking-wide">
+                  <span className="bg-[#141417] border border-[#26262B] px-2.5 py-0.5 rounded text-sm font-semibold text-[#F4F4F5]">
                     {c.token}
                   </span>
-                  <span className="text-[10px] text-zinc-500 font-mono">
+                  <span className="text-[11px] text-[#9A9AA3] font-tabular">
                     ID {c.tokenId}
                   </span>
                 </div>
               </div>
 
-              {/* Right Column: Probabilities & Relative Proportions */}
-              <div className="flex items-center gap-4 z-10 self-end sm:self-center font-mono text-xs">
-                {/* Probability */}
+              {/* Right Column: Probabilities & Actions */}
+              <div className="flex items-center gap-4 z-10 self-end sm:self-center text-xs font-tabular">
                 <div className="text-right">
-                  <div className="font-bold text-cyan-300 text-sm">
+                  <div className={`font-bold ${isTop1 ? 'text-[#FF5A1F]' : 'text-[#F4F4F5]'}`}>
                     {c.probPercent}
                   </div>
-                  <div className="text-[10px] text-zinc-500">
+                  <div className="text-[10px] text-[#9A9AA3]">
                     P = {c.prob.toFixed(4)}
                   </div>
                 </div>
 
-                {/* Relative proportion to #1 */}
                 <div className="text-right min-w-[70px]">
-                  <div className="text-zinc-300 font-medium">
+                  <div className="text-[#F4F4F5] font-medium">
                     {c.relativeRatioPercent}
                   </div>
-                  <div className="text-[10px] text-zinc-500">
-                    of Top #1
+                  <div className="text-[10px] text-[#9A9AA3]">
+                    of Rank #1
                   </div>
                 </div>
 
-                {/* Optional append button */}
                 {onAppendToken && (
                   <button
                     type="button"
                     onClick={() => {
-                      // Remove explicit replacement markers for append
                       const raw = c.token.replace(/␣/g, ' ').replace(/↵/g, '\n').replace(/⇥/g, '\t');
                       onAppendToken(raw);
                     }}
-                    className="p-1.5 rounded-lg bg-white/5 hover:bg-cyan-500 hover:text-black border border-white/10 text-zinc-400 transition-all cursor-pointer"
-                    title={`Append "${c.token}" to prompt`}
+                    className="p-1.5 rounded border border-[#26262B] bg-[#141417] hover:border-[#F4F4F5]/30 hover:text-[#F4F4F5] text-[#9A9AA3] transition-colors cursor-pointer"
+                    title={`Append "${c.token}" to sentence`}
                   >
                     <Plus className="w-3.5 h-3.5" />
                   </button>

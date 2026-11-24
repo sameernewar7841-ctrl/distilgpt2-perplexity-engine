@@ -1,39 +1,94 @@
 @import "tailwindcss";
 
 :root {
-  --background: #030712;
-  --foreground: #f8fafc;
+  --background: #09090B;
+  --foreground: #F4F4F5;
+  --surface: #141417;
+  --surface-hover: #1A1A1E;
+  --border: #26262B;
+  --text-primary: #F4F4F5;
+  --text-secondary: #9A9AA3;
+  --accent: #FF5A1F;
+  --accent-hover: #E04812;
+  --accent-tint: rgba(255, 90, 31, 0.10);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-surface-hover: var(--surface-hover);
+  --color-border-hairline: var(--border);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
 }
 
 body {
-  background-color: #030712;
-  color: #f8fafc;
+  background-color: #09090B;
+  color: #F4F4F5;
   overflow-x: hidden;
-  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11", "tnum";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-@keyframes shine {
-  0% {
-    background-position: 200% 0;
-  }
-  100% {
-    background-position: -200% 0;
-  }
+/* Swiss Grotesque Headline Tracking */
+.heading-editorial {
+  letter-spacing: -0.035em;
+  font-weight: 600;
+  color: #F4F4F5;
 }
 
-.animate-shine {
-  animation: shine 6s linear infinite;
+/* Tabular Numbers for Technical Math */
+.font-tabular {
+  font-variant-numeric: tabular-nums;
 }
 
+/* Hairline Grid Helper */
+.border-hairline {
+  border: 1px solid #26262B;
+}
+
+.border-hairline-b {
+  border-bottom: 1px solid #26262B;
+}
+
+.border-hairline-t {
+  border-top: 1px solid #26262B;
+}
+
+.border-hairline-r {
+  border-right: 1px solid #26262B;
+}
+
+.border-hairline-l {
+  border-left: 1px solid #26262B;
+}
+
+/* Custom Scrollbar for Lenis */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #09090B;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #26262B;
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #FF5A1F;
+}
+
+/* Subtle fade in without bounce */
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(6px);
+    transform: translateY(4px);
   }
   to {
     opacity: 1;
@@ -42,24 +97,11 @@ body {
 }
 
 .animate-fadeIn {
-  animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: fadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* Custom Scrollbar for Lenis */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: rgba(3, 7, 18, 0.8);
-}
-
-::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(56, 189, 248, 0.4);
+/* Selection Color */
+::selection {
+  background-color: rgba(255, 90, 31, 0.25);
+  color: #F4F4F5;
 }
