@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLmRunner } from '@/hooks/use-lm-runner';
 import { useLenisScroll } from '@/components/SmoothScroll';
 import { SentenceEvaluator } from '@/components/SentenceEvaluator';
@@ -8,15 +8,15 @@ import { TokenEvaluationTable } from '@/components/TokenEvaluationTable';
 import { NextTokenPredictions } from '@/components/NextTokenPredictions';
 import { ManualSimulator } from '@/components/ManualSimulator';
 import { MathTheoryExplorer } from '@/components/MathTheoryExplorer';
-import { VantaClouds2 } from '@/components/VantaClouds2';
+import ShapeWaves from '@/components/react-bits/ShapeWaves';
 import { DecryptedText } from '@/components/react-bits/DecryptedText';
 import { ShinyText } from '@/components/react-bits/ShinyText';
 import { SpotlightCard } from '@/components/react-bits/SpotlightCard';
 
 export default function HomePage() {
-  const [activeTab, setActiveTab] = useState<'model' | 'simulator' | 'math'>('model');
-  const [atmosphereEnabled, setAtmosphereEnabled] = useState<boolean>(true);
-  const { resize } = useLenisScroll();
+  const [activeSection, setActiveSection] = useState<'runner' | 'simulator' | 'math'>('runner');
+  const [wavesEnabled, setWavesEnabled] = useState<boolean>(true);
+  const { lenis } = useLenisScroll();
 
   const {
     status,
@@ -30,12 +30,36 @@ export default function HomePage() {
     evaluateSentence,
   } = useLmRunner();
 
-  const handleTabChange = (tab: 'model' | 'simulator' | 'math') => {
-    setActiveTab(tab);
-    setTimeout(() => {
-      resize();
-    }, 50);
+  const scrollToSection = (id: string, sectionKey: 'runner' | 'simulator' | 'math') => {
+    setActiveSection(sectionKey);
+    const element = document.getElementById(id);
+    if (!element) return;
+    if (lenis) {
+      lenis.scrollTo(element, { offset: -75, duration: 0.9 });
+    } else {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
   };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY + 200;
+      const runnerEl = document.getElementById('model-runner');
+      const simulatorEl = document.getElementById('offline-simulator');
+      const mathEl = document.getElementById('math-proofs');
+
+      if (mathEl && scrollY >= mathEl.offsetTop) {
+        setActiveSection('math');
+      } else if (simulatorEl && scrollY >= simulatorEl.offsetTop) {
+        setActiveSection('simulator');
+      } else {
+        setActiveSection('runner');
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const handleAppendToken = (rawTokenText: string) => {
     const updated = currentText + rawTokenText;
@@ -45,10 +69,27 @@ export default function HomePage() {
 
   return (
     <main className="relative min-h-screen bg-[#09090B] text-[#F4F4F5] flex flex-col justify-between selection:bg-[#FFAE52]/20 selection:text-[#FFFFFF]">
-      {/* Vanta.js Clouds2 Twilight Atmosphere */}
-      <VantaClouds2 enabled={atmosphereEnabled} />
+      {/* React Bits ShapeWaves Background (https://reactbits.dev/tools/background-studio?bg=shape-waves) */}
+      <div className="absolute top-0 left-0 right-0 h-[720px] -z-10 pointer-events-none overflow-hidden select-none">
+        <ShapeWaves
+          shapes="mixed"
+          cellSize={15}
+          dotSize={0.72}
+          color="#1e1e24"
+          hoverColor="#FFAE52"
+          backgroundColor="#09090B"
+          glow={0.38}
+          speed={0.9}
+          interactive={true}
+          splashRadius={45}
+          splashStrength={0.45}
+          className={`transition-opacity duration-700 ${wavesEnabled ? 'opacity-90' : 'opacity-0'}`}
+        />
+        {/* Seamless bottom fade mask into #09090B canvas */}
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#09090B]/30 to-[#09090B]" />
+      </div>
 
-      {/* 1. Sticky Header */}
+      {/* 1. Sticky Header with Unified Anchor Navigation */}
       <header className="sticky top-0 z-50 border-b border-[#26262B] bg-[#09090B]/90 backdrop-blur-md">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           {/* Minimal Monochrome Geometric Mark + Brand */}
@@ -65,60 +106,60 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Centered Navigation Tabs */}
-          <nav className="flex items-center gap-1 p-1 rounded-lg border border-[#26262B] bg-[#141417]">
+          {/* Unified Navigation Links (Merged into single page with smooth scroll) */}
+          <nav className="hidden sm:flex items-center gap-1 p-1 rounded-lg border border-[#26262B] bg-[#141417]">
             <button
               type="button"
-              onClick={() => handleTabChange('model')}
+              onClick={() => scrollToSection('model-runner', 'runner')}
               className={`px-3.5 py-1.5 rounded text-xs font-mono transition-all active:scale-95 cursor-pointer ${
-                activeTab === 'model'
+                activeSection === 'runner'
                   ? 'bg-[#FFAE52] text-[#09090B] font-bold shadow-sm'
                   : 'text-[#9A9AA3] hover:text-[#F4F4F5] hover:bg-[#09090B]'
               }`}
             >
-              Model Runner
+              01. Model Runner
             </button>
             <button
               type="button"
-              onClick={() => handleTabChange('simulator')}
+              onClick={() => scrollToSection('offline-simulator', 'simulator')}
               className={`px-3.5 py-1.5 rounded text-xs font-mono transition-all active:scale-95 cursor-pointer ${
-                activeTab === 'simulator'
+                activeSection === 'simulator'
                   ? 'bg-[#FFAE52] text-[#09090B] font-bold shadow-sm'
                   : 'text-[#9A9AA3] hover:text-[#F4F4F5] hover:bg-[#09090B]'
               }`}
             >
-              Offline Simulator
+              02. Offline Simulator
             </button>
             <button
               type="button"
-              onClick={() => handleTabChange('math')}
+              onClick={() => scrollToSection('math-proofs', 'math')}
               className={`px-3.5 py-1.5 rounded text-xs font-mono transition-all active:scale-95 cursor-pointer ${
-                activeTab === 'math'
+                activeSection === 'math'
                   ? 'bg-[#FFAE52] text-[#09090B] font-bold shadow-sm'
                   : 'text-[#9A9AA3] hover:text-[#F4F4F5] hover:bg-[#09090B]'
               }`}
             >
-              Math &amp; Proofs
+              03. Math &amp; Proofs
             </button>
           </nav>
 
-          {/* Atmosphere Toggle */}
+          {/* Waves Background Toggle */}
           <div className="flex items-center">
             <button
               type="button"
-              onClick={() => setAtmosphereEnabled((prev) => !prev)}
+              onClick={() => setWavesEnabled((prev) => !prev)}
               className="px-2.5 py-1 rounded border border-[#26262B] bg-[#141417] hover:border-[#383840] text-xs font-mono text-[#9A9AA3] hover:text-[#F4F4F5] transition-all cursor-pointer active:scale-95"
             >
-              Atmosphere: <span className={atmosphereEnabled ? 'text-[#FFAE52] font-bold' : 'text-[#9A9AA3]'}>{atmosphereEnabled ? 'ON' : 'OFF'}</span>
+              Waves: <span className={wavesEnabled ? 'text-[#FFAE52] font-bold' : 'text-[#9A9AA3]'}>{wavesEnabled ? 'ON' : 'OFF'}</span>
             </button>
           </div>
         </div>
       </header>
 
-      {/* Main Container */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 w-full flex-1 space-y-10">
-        {/* 2. Hero Section */}
-        <section className="pt-4 pb-8 space-y-6">
+      {/* Main Unified Content Container */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 w-full flex-1 space-y-16">
+        {/* Hero Section */}
+        <section className="pt-4 pb-4 space-y-6">
           {/* Lenis Swiss Live Coordinate & Ticker Bar */}
           <div className="flex flex-wrap items-center gap-2 sm:gap-4 font-mono text-[11px] text-[#9A9AA3] pb-3 border-b border-[#26262B]">
             <div className="flex items-center gap-1.5">
@@ -129,6 +170,11 @@ export default function HomePage() {
             <div className="flex items-center gap-1">
               <span className="text-[#9A9AA3]">ENGINE:</span>
               <span className="text-[#F4F4F5]">ONNX-RUNTIME WEB</span>
+            </div>
+            <span className="text-[#26262B]">•</span>
+            <div className="flex items-center gap-1">
+              <span className="text-[#9A9AA3]">BG:</span>
+              <span className="text-[#FFAE52]">REACT BITS SHAPE-WAVES</span>
             </div>
             <span className="text-[#26262B]">•</span>
             <div className="flex items-center gap-1">
@@ -177,54 +223,86 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Tab Content */}
-        {activeTab === 'model' && (
-          <div className="space-y-8 animate-fadeIn">
-            <SentenceEvaluator
-              currentText={currentText}
-              onTextChange={setCurrentText}
-              onEvaluate={evaluateSentence}
-              status={status}
-              isBusy={isBusy}
-              isModelLoaded={isModelLoaded}
-              progress={progress}
-              error={error}
-            />
+        {/* SECTION 01: MODEL RUNNER */}
+        <section id="model-runner" className="space-y-8 scroll-mt-24">
+          <div className="flex items-center justify-between pb-3 border-b border-[#26262B]">
+            <div className="flex items-center gap-2">
+              <span className="font-mono text-xs font-bold text-[#FFAE52]">01</span>
+              <span className="font-mono text-xs uppercase tracking-widest text-[#F4F4F5] font-semibold">
+                In-Browser Language Model Runner
+              </span>
+            </div>
+            <span className="font-mono text-[11px] text-[#9A9AA3]">
+              DistilGPT-2 (q8 ONNX)
+            </span>
+          </div>
 
-            {result ? (
-              <div className="space-y-8 animate-fadeIn">
-                <TokenEvaluationTable
-                  tokens={result.tokens}
-                  breakdown={result.perplexityBreakdown}
-                  inferenceTimeMs={result.inferenceTimeMs}
-                />
-                <NextTokenPredictions
-                  candidates={result.nextTokens}
-                  evaluatedSentence={result.text}
-                  onAppendToken={handleAppendToken}
-                />
+          <SentenceEvaluator
+            currentText={currentText}
+            onTextChange={setCurrentText}
+            onEvaluate={evaluateSentence}
+            status={status}
+            isBusy={isBusy}
+            isModelLoaded={isModelLoaded}
+            progress={progress}
+            error={error}
+          />
+
+          {result ? (
+            <div className="space-y-8 animate-fadeIn">
+              <TokenEvaluationTable
+                tokens={result.tokens}
+                breakdown={result.perplexityBreakdown}
+                inferenceTimeMs={result.inferenceTimeMs}
+              />
+              <NextTokenPredictions
+                candidates={result.nextTokens}
+                evaluatedSentence={result.text}
+                onAppendToken={handleAppendToken}
+              />
+            </div>
+          ) : (
+            <div className="border border-[#26262B] bg-[#141417] rounded-xl p-8 text-center font-mono">
+              <div className="text-xs text-[#9A9AA3]">
+                Select a preset sequence above or click <span className="text-[#FFAE52] font-semibold">"Evaluate Perplexity →"</span> to execute the forward pass and reveal the token probability breakdown.
               </div>
-            ) : (
-              <div className="border border-[#26262B] bg-[#141417] rounded-xl p-8 text-center font-mono">
-                <div className="text-xs text-[#9A9AA3]">
-                  Select a preset sequence above or click <span className="text-[#FFAE52] font-semibold">"Evaluate Perplexity →"</span> to execute the forward pass.
-                </div>
-              </div>
-            )}
-          </div>
-        )}
+            </div>
+          )}
+        </section>
 
-        {activeTab === 'simulator' && (
-          <div className="space-y-8 animate-fadeIn">
-            <ManualSimulator />
+        {/* SECTION 02: OFFLINE SIMULATOR */}
+        <section id="offline-simulator" className="space-y-8 pt-6 scroll-mt-24 border-t border-[#26262B]">
+          <div className="flex items-center justify-between pb-3 border-b border-[#26262B]">
+            <div className="flex items-center gap-2">
+              <span className="font-mono text-xs font-bold text-[#FFAE52]">02</span>
+              <span className="font-mono text-xs uppercase tracking-widest text-[#F4F4F5] font-semibold">
+                Offline Classroom Perplexity Simulator
+              </span>
+            </div>
+            <span className="font-mono text-[11px] text-[#9A9AA3]">
+              Pedagogical Hand-Calculator (No Weights Needed)
+            </span>
           </div>
-        )}
 
-        {activeTab === 'math' && (
-          <div className="space-y-8 animate-fadeIn">
-            <MathTheoryExplorer />
+          <ManualSimulator />
+        </section>
+
+        {/* SECTION 03: MATHEMATICAL FORMULATIONS & PROOFS */}
+        <section id="math-proofs" className="space-y-8 pt-6 scroll-mt-24 border-t border-[#26262B]">
+          <div className="flex items-center justify-between pb-3 border-b border-[#26262B]">
+            <div className="flex items-center gap-2">
+              <span className="font-mono text-xs font-bold text-[#FFAE52]">03</span>
+              <span className="font-mono text-xs uppercase tracking-widest text-[#F4F4F5] font-semibold">
+                Mathematical Formulations &amp; Algorithmic Proofs
+              </span>
+            </div>
+            <span className="font-mono text-[11px] text-[#9A9AA3]">
+              Numerically Stable Log-Softmax &amp; Log-Space Perplexity
+            </span>
           </div>
-        )}
+
+          <MathTheoryExplorer />
+        </section>
       </div>
 
       {/* Minimal Editorial Footer */}
@@ -235,6 +313,8 @@ export default function HomePage() {
             <span>Xenova/distilgpt2 (q8) Client-Side Inference</span>
           </div>
           <div className="flex items-center gap-4">
+            <span>ShapeWaves (React Bits)</span>
+            <span>•</span>
             <span>Plus Jakarta Sans &amp; JetBrains Mono</span>
             <span>•</span>
             <span>Lenis Scroll</span>
