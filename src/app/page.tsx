@@ -10,6 +10,8 @@ import { ManualSimulator } from '@/components/ManualSimulator';
 import { MathTheoryExplorer } from '@/components/MathTheoryExplorer';
 import { VantaClouds2 } from '@/components/VantaClouds2';
 import { DecryptedText } from '@/components/react-bits/DecryptedText';
+import { ShinyText } from '@/components/react-bits/ShinyText';
+import { SpotlightCard } from '@/components/react-bits/SpotlightCard';
 
 export default function HomePage() {
   const [activeTab, setActiveTab] = useState<'model' | 'simulator' | 'math'>('model');
@@ -117,11 +119,34 @@ export default function HomePage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 w-full flex-1 space-y-10">
         {/* 2. Hero Section */}
         <section className="pt-4 pb-8 space-y-6">
+          {/* Lenis Swiss Live Coordinate & Ticker Bar */}
+          <div className="flex flex-wrap items-center gap-2 sm:gap-4 font-mono text-[11px] text-[#9A9AA3] pb-3 border-b border-[#26262B]">
+            <div className="flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#FFAE52] animate-pulse" />
+              <span className="text-[#F4F4F5] font-semibold">DISTILGPT-2 (Q8)</span>
+            </div>
+            <span className="text-[#26262B]">•</span>
+            <div className="flex items-center gap-1">
+              <span className="text-[#9A9AA3]">ENGINE:</span>
+              <span className="text-[#F4F4F5]">ONNX-RUNTIME WEB</span>
+            </div>
+            <span className="text-[#26262B]">•</span>
+            <div className="flex items-center gap-1">
+              <span className="text-[#9A9AA3]">SCROLL:</span>
+              <span className="text-[#FFAE52]">LENIS SMOOTH</span>
+            </div>
+            <span className="text-[#26262B]">•</span>
+            <div className="flex items-center gap-1">
+              <span className="text-[#9A9AA3]">LATENCY:</span>
+              <span className="text-[#F4F4F5]">SINGLE PASS</span>
+            </div>
+          </div>
+
           <div className="max-w-3xl space-y-4">
             {/* High-Contrast Editorial Display Headline */}
             <h1 className="text-3xl sm:text-5xl md:text-6xl heading-editorial leading-[1.08] text-[#F4F4F5]">
               Perplexity &amp; Next-Token <br />
-              <span className="text-[#FFAE52]">Prediction Engine</span>
+              <ShinyText text="Prediction Engine" className="font-bold text-[#FFAE52]" />
             </h1>
 
             {/* Concise Editorial Subtitle */}
@@ -131,24 +156,24 @@ export default function HomePage() {
             </p>
           </div>
 
-          {/* 4-Column Architectural Stat Bar */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 border border-[#26262B] bg-[#141417] rounded-xl overflow-hidden divide-y lg:divide-y-0 lg:divide-x divide-[#26262B] font-mono">
-            <div className="p-4 sm:p-5">
+          {/* 4-Column Architectural Stat Bar with React Bits SpotlightCards */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 font-mono">
+            <SpotlightCard className="p-4 sm:p-5">
               <div className="text-[10px] text-[#9A9AA3] uppercase tracking-wider">01 / VOCAB SIZE</div>
               <div className="text-base sm:text-lg font-bold text-[#F4F4F5] mt-1 font-tabular">50,257</div>
-            </div>
-            <div className="p-4 sm:p-5">
+            </SpotlightCard>
+            <SpotlightCard className="p-4 sm:p-5">
               <div className="text-[10px] text-[#9A9AA3] uppercase tracking-wider">02 / QUANTIZATION</div>
               <div className="text-base sm:text-lg font-bold text-[#F4F4F5] mt-1">8-Bit (q8)</div>
-            </div>
-            <div className="p-4 sm:p-5">
+            </SpotlightCard>
+            <SpotlightCard className="p-4 sm:p-5">
               <div className="text-[10px] text-[#9A9AA3] uppercase tracking-wider">03 / FORWARD PASS</div>
               <div className="text-base sm:text-lg font-bold text-[#F4F4F5] mt-1">Single Pass</div>
-            </div>
-            <div className="p-4 sm:p-5">
+            </SpotlightCard>
+            <SpotlightCard className="p-4 sm:p-5">
               <div className="text-[10px] text-[#9A9AA3] uppercase tracking-wider">04 / EXECUTION</div>
               <div className="text-base sm:text-lg font-bold text-[#F4F4F5] mt-1">Web Worker</div>
-            </div>
+            </SpotlightCard>
           </div>
         </section>
 

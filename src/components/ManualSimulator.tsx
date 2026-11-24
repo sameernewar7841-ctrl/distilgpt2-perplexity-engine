@@ -7,6 +7,8 @@ import {
 } from '@/lib/perplexity-math';
 import { useLenisScroll } from '@/components/SmoothScroll';
 import { Plus, Trash2, RotateCcw } from 'lucide-react';
+import { SpotlightCard } from '@/components/react-bits/SpotlightCard';
+import { ShinyText } from '@/components/react-bits/ShinyText';
 
 interface ManualRow {
   id: string;
@@ -313,7 +315,7 @@ export function ManualSimulator() {
 
           {/* 3-Step Architectural Stat Bar */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-            <div className="border border-[#26262B] bg-[#09090B] rounded-lg p-4 flex flex-col justify-between">
+            <SpotlightCard className="p-4 flex flex-col justify-between">
               <div>
                 <div className="text-[11px] font-mono text-[#9A9AA3] mb-1">
                   01 / PRODUCT OF 1/P
@@ -325,9 +327,9 @@ export function ManualSimulator() {
               <div className="text-xl md:text-2xl font-mono font-bold font-tabular text-[#F4F4F5] break-all">
                 {breakdown.productInversePFormatted}
               </div>
-            </div>
+            </SpotlightCard>
 
-            <div className="border border-[#26262B] bg-[#09090B] rounded-lg p-4 flex flex-col justify-between">
+            <SpotlightCard className="p-4 flex flex-col justify-between">
               <div>
                 <div className="text-[11px] font-mono text-[#9A9AA3] mb-1">
                   02 / TOKEN COUNT
@@ -339,9 +341,9 @@ export function ManualSimulator() {
               <div className="text-xl md:text-2xl font-mono font-bold font-tabular text-[#F4F4F5]">
                 {breakdown.tokenCount}
               </div>
-            </div>
+            </SpotlightCard>
 
-            <div className="border border-[#FFAE52]/50 bg-[#09090B] rounded-lg p-4 flex flex-col justify-between shadow-[0_0_15px_rgba(255,160,72,0.06)]">
+            <SpotlightCard className="p-4 flex flex-col justify-between border-[#FFAE52]/40 shadow-[0_0_20px_rgba(255,174,82,0.08)]">
               <div>
                 <div className="text-[11px] font-mono text-[#FFAE52] font-bold mb-1">
                   03 / GEOMETRIC MEAN (PERPLEXITY)
@@ -351,9 +353,9 @@ export function ManualSimulator() {
                 </div>
               </div>
               <div className="text-2xl md:text-3xl font-mono font-black font-tabular text-[#FFAE52]">
-                {breakdown.perplexityFormatted}
+                <ShinyText text={breakdown.perplexityFormatted} className="font-black text-[#FFAE52]" />
               </div>
-            </div>
+            </SpotlightCard>
           </div>
 
           {/* Clean Matte Interpretation Callout (2px #FFAE52 left border) */}

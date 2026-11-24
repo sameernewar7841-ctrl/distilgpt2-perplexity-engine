@@ -6,6 +6,8 @@ import {
   type TokenEvaluation,
   type PerplexityBreakdown,
 } from '@/lib/perplexity-math';
+import { SpotlightCard } from '@/components/react-bits/SpotlightCard';
+import { ShinyText } from '@/components/react-bits/ShinyText';
 
 interface TokenEvaluationTableProps {
   tokens: TokenEvaluation[];
@@ -111,7 +113,7 @@ export function TokenEvaluationTable({
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
           {/* Step 1 */}
-          <div className="border border-[#26262B] bg-[#09090B] rounded-lg p-4 flex flex-col justify-between">
+          <SpotlightCard className="p-4 flex flex-col justify-between">
             <div>
               <div className="text-[11px] font-mono text-[#9A9AA3] mb-1">
                 01 / PRODUCT OF 1/P
@@ -128,10 +130,10 @@ export function TokenEvaluationTable({
                 Log Sum S = {formatSignificantDigits(breakdown.sumNegLogProb)}
               </div>
             </div>
-          </div>
+          </SpotlightCard>
 
           {/* Step 2 */}
-          <div className="border border-[#26262B] bg-[#09090B] rounded-lg p-4 flex flex-col justify-between">
+          <SpotlightCard className="p-4 flex flex-col justify-between">
             <div>
               <div className="text-[11px] font-mono text-[#9A9AA3] mb-1">
                 02 / TOKEN COUNT
@@ -148,10 +150,10 @@ export function TokenEvaluationTable({
                 Loss (S/N) = {formatSignificantDigits(breakdown.averageLoss)}
               </div>
             </div>
-          </div>
+          </SpotlightCard>
 
           {/* Step 3 - Final Output Highlighted in Lighter Orange #FFAE52 */}
-          <div className="border border-[#FFAE52]/50 bg-[#09090B] rounded-lg p-4 flex flex-col justify-between shadow-[0_0_15px_rgba(255,160,72,0.06)]">
+          <SpotlightCard className="p-4 flex flex-col justify-between border-[#FFAE52]/40 shadow-[0_0_20px_rgba(255,174,82,0.08)]">
             <div>
               <div className="text-[11px] font-mono text-[#FFAE52] font-bold mb-1">
                 03 / GEOMETRIC MEAN (PERPLEXITY)
@@ -162,13 +164,13 @@ export function TokenEvaluationTable({
             </div>
             <div>
               <div className="text-2xl md:text-3xl font-mono font-black font-tabular text-[#FFAE52]">
-                {breakdown.perplexityFormatted}
+                <ShinyText text={breakdown.perplexityFormatted} className="font-black text-[#FFAE52]" />
               </div>
               <div className="text-[10px] text-[#9A9AA3] font-mono mt-1">
                 Final Evaluated Perplexity
               </div>
             </div>
-          </div>
+          </SpotlightCard>
         </div>
 
         {/* Plain-English Interpretation Callout */}

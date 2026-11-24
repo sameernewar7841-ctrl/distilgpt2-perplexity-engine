@@ -12,19 +12,17 @@ interface ShinyTextProps {
 export function ShinyText({
   text,
   disabled = false,
-  speed = 4,
+  speed = 4.5,
   className = '',
 }: ShinyTextProps) {
   return (
     <span
-      className={`inline-block font-inherit text-[#F4F4F5] ${
-        disabled ? '' : 'animate-shine'
+      className={`inline-block font-inherit ${
+        disabled
+          ? 'text-[#F4F4F5]'
+          : 'animate-shine bg-gradient-to-r from-[#F4F4F5] via-[#FFAE52] to-[#F4F4F5] bg-[length:250%_100%] bg-clip-text text-transparent'
       } ${className}`}
       style={{
-        backgroundImage:
-          'linear-gradient(120deg, #F4F4F5 0%, #FFFFFF 50%, #9A9AA3 100%)',
-        backgroundSize: '200% 100%',
-        WebkitBackgroundClip: 'text',
         animationDuration: `${speed}s`,
       }}
     >

@@ -84,14 +84,21 @@ export function VantaClouds2({ enabled = true }: VantaClouds2Props) {
           scale: 1.0,
           scaleMobile: 1.5,
           backgroundColor: 0x09090b, // #09090B dominant canvas
-          skyColor: 0x16141c,        // #16141C dusky atmospheric sky
-          cloudColor: 0x302a36,      // #302A36 visible volumetric cloud bodies
-          lightColor: 0x8e6e50,      // #8E6E50 warm golden-apricot twilight light
-          speed: 0.70,
+          skyColor: 0x09090b,        // #09090B seamless blend into canvas
+          cloudColor: 0x221a28,      // #221A28 visible volumetric dusk mist
+          lightColor: 0xc48042,      // #C48042 warm luminous twilight light
+          speed: 0.80,
           texturePath: proceduralNoiseUrl || '/gallery/noise.png',
         });
 
         setIsLoaded(true);
+
+        // Force viewport resize so 3D perspective scales with retina displays
+        if (typeof window !== 'undefined') {
+          setTimeout(() => {
+            window.dispatchEvent(new Event('resize'));
+          }, 100);
+        }
       } catch (err) {
         console.warn('Vanta Clouds2 initialization fallback:', err);
       }
@@ -99,8 +106,17 @@ export function VantaClouds2({ enabled = true }: VantaClouds2Props) {
 
     initVanta();
 
+    // Window mouse listener ensures clouds roll and tilt wherever cursor moves
+    const handleGlobalMouseMove = (e: MouseEvent) => {
+      if (effectRef.current && typeof effectRef.current.onMouseMove === 'function') {
+        effectRef.current.onMouseMove(e);
+      }
+    };
+    window.addEventListener('mousemove', handleGlobalMouseMove, { passive: true });
+
     return () => {
       destroyed = true;
+      window.removeEventListener('mousemove', handleGlobalMouseMove);
       if (effectRef.current) {
         try {
           effectRef.current.destroy();
@@ -113,17 +129,17 @@ export function VantaClouds2({ enabled = true }: VantaClouds2Props) {
   }, [enabled]);
 
   return (
-    <div className="absolute top-0 left-0 right-0 h-[640px] -z-10 pointer-events-none overflow-hidden select-none">
+    <div className="absolute top-0 left-0 right-0 h-[720px] -z-10 pointer-events-none overflow-hidden select-none">
       {/* Vanta Canvas Container */}
       <div
         ref={vantaRef}
         className={`absolute inset-0 transition-opacity duration-1000 ${
-          enabled && isLoaded ? 'opacity-85' : 'opacity-0'
+          enabled && isLoaded ? 'opacity-90' : 'opacity-0'
         }`}
       />
 
       {/* Seamless bottom fade mask into #09090B canvas */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#09090B]/30 to-[#09090B]" />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#09090B]/40 to-[#09090B]" />
     </div>
   );
 }

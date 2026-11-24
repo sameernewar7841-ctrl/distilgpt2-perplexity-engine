@@ -51,13 +51,15 @@ export function NextTokenPredictions({
               key={c.rank}
               className={`p-3.5 rounded-lg border transition-all relative overflow-hidden flex flex-col sm:flex-row sm:items-center justify-between gap-3 ${
                 isTop1
-                  ? 'border-[#FFAE52]/50 bg-[#09090B] shadow-[0_0_15px_rgba(255,160,72,0.04)]'
+                  ? 'border-[#FFAE52]/50 bg-[#09090B] shadow-[0_0_20px_rgba(255,174,82,0.08)]'
                   : 'border-[#26262B] bg-[#09090B] hover:border-[#383840]'
               }`}
             >
-              {/* Relative proportion fill bar */}
+              {/* Relative proportion fill bar with tactile amber highlight for #1 */}
               <div
-                className="absolute top-0 bottom-0 left-0 bg-[#26262B]/60 pointer-events-none transition-all"
+                className={`absolute top-0 bottom-0 left-0 pointer-events-none transition-all duration-300 ${
+                  isTop1 ? 'bg-[#FFAE52]/10 border-r border-[#FFAE52]/30' : 'bg-[#26262B]/50'
+                }`}
                 style={{ width: `${c.relativeRatio * 100}%` }}
               />
 
