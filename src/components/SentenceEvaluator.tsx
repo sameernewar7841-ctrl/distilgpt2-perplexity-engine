@@ -58,7 +58,7 @@ export function SentenceEvaluator({
       {/* Clean Single Title Row with Minimal Status Dot */}
       <div className="flex items-center justify-between pb-6 border-b border-[#26262B]">
         <div className="flex items-center gap-3">
-          <span className="font-mono text-xs text-[#FFAE52] font-bold">01</span>
+          <span className="font-mono text-xs text-[#FFAE52] font-bold">02</span>
           <h2 className="text-xl md:text-2xl heading-editorial">
             Sequence Input &amp; Evaluation
           </h2>

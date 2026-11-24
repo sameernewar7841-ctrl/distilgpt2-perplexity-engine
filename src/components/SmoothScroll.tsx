@@ -2,15 +2,18 @@
 
 import React, { createContext, useContext, useEffect, useRef, useState, useCallback } from 'react';
 import Lenis from 'lenis';
+import 'lenis/dist/lenis.css';
 
 interface LenisContextValue {
   lenis: Lenis | null;
   resize: () => void;
+  scrollProgress: number;
 }
 
 const LenisContext = createContext<LenisContextValue>({
   lenis: null,
   resize: () => {},
+  scrollProgress: 0,
 });
 
 export function useLenisScroll() {
@@ -23,42 +26,58 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
   const lenisRef = useRef<Lenis | null>(null);
 
   useEffect(() => {
-    const lenis = new Lenis({
-      duration: 0.9,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      orientation: 'vertical',
-      gestureOrientation: 'vertical',
-      smoothWheel: true,
-      wheelMultiplier: 0.9,
-      touchMultiplier: 1.5,
-    });
+    let currentLenis: Lenis | null = null;
+    let isDesktopState = typeof window !== 'undefined' && window.innerWidth >= 1024;
 
-    lenisRef.current = lenis;
-    setLenisInstance(lenis);
-
-    lenis.on('scroll', (e: any) => {
-      if (typeof e.progress === 'number') {
-        setScrollProgress(Math.min(100, Math.max(0, e.progress * 100)));
+    function initLenis(isDesktop: boolean) {
+      if (currentLenis) {
+        currentLenis.destroy();
+        currentLenis = null;
       }
-    });
 
-    let animationFrameId: number;
+      const instance = new Lenis({
+        orientation: isDesktop ? 'horizontal' : 'vertical',
+        gestureOrientation: isDesktop ? 'both' : 'vertical',
+        smoothWheel: true,
+        autoRaf: true,
+        autoResize: true,
+        lerp: 0.085,
+        wheelMultiplier: 1,
+        anchors: true,
+        respectReducedMotion: true,
+      });
 
-    function raf(time: number) {
-      lenis.raf(time);
-      animationFrameId = requestAnimationFrame(raf);
+      instance.on('scroll', (e: any) => {
+        if (typeof e.progress === 'number') {
+          setScrollProgress(Math.min(100, Math.max(0, e.progress * 100)));
+        }
+      });
+
+      currentLenis = instance;
+      lenisRef.current = instance;
+      setLenisInstance(instance);
     }
 
-    animationFrameId = requestAnimationFrame(raf);
+    initLenis(isDesktopState);
 
-    const timeoutId = setTimeout(() => {
-      lenis.resize();
-    }, 100);
+    const handleWindowResize = () => {
+      const isDesktopNow = window.innerWidth >= 1024;
+      if (isDesktopNow !== isDesktopState) {
+        isDesktopState = isDesktopNow;
+        initLenis(isDesktopNow);
+      } else if (currentLenis) {
+        currentLenis.resize();
+      }
+    };
+
+    window.addEventListener('resize', handleWindowResize);
 
     return () => {
-      clearTimeout(timeoutId);
-      cancelAnimationFrame(animationFrameId);
-      lenis.destroy();
+      window.removeEventListener('resize', handleWindowResize);
+      if (currentLenis) {
+        currentLenis.destroy();
+        currentLenis = null;
+      }
       lenisRef.current = null;
     };
   }, []);
@@ -70,12 +89,7 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
   }, []);
 
   return (
-    <LenisContext.Provider value={{ lenis: lenisInstance, resize }}>
-      {/* Lenis Top Scroll Progress Bar */}
-      <div
-        className="lenis-scroll-indicator"
-        style={{ width: `${scrollProgress}%` }}
-      />
+    <LenisContext.Provider value={{ lenis: lenisInstance, resize, scrollProgress }}>
       {children}
     </LenisContext.Provider>
   );

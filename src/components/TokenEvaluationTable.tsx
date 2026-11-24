@@ -61,7 +61,7 @@ export function TokenEvaluationTable({
       </div>
 
       {/* Detailed Technical Table */}
-      <div className="overflow-x-auto rounded-lg border border-[#26262B] bg-[#09090B]">
+      <div data-lenis-prevent className="overflow-x-auto rounded-lg border border-[#26262B] bg-[#09090B]">
         <table className="w-full text-left text-xs border-collapse">
           <thead>
             <tr className="border-b border-[#26262B] bg-[#141417] text-[#9A9AA3] uppercase font-mono tracking-wider">
