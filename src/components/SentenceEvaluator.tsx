@@ -58,7 +58,7 @@ export function SentenceEvaluator({
       {/* Clean Single Title Row with Minimal Status Dot */}
       <div className="flex items-center justify-between pb-6 border-b border-[#26262B]">
         <div className="flex items-center gap-3">
-          <span className="font-mono text-xs text-[#FF5A1F] font-bold">01</span>
+          <span className="font-mono text-xs text-[#FF7A1A] font-bold">01</span>
           <h2 className="text-xl md:text-2xl heading-editorial">
             Sequence Input &amp; Evaluation
           </h2>
@@ -68,12 +68,12 @@ export function SentenceEvaluator({
         <div className="flex items-center gap-2 font-mono text-xs text-[#9A9AA3]">
           {isModelLoaded ? (
             <>
-              <span className="w-1.5 h-1.5 rounded-full bg-[#FF5A1F]" />
+              <span className="w-1.5 h-1.5 rounded-full bg-[#FF7A1A]" />
               <span className="text-[#F4F4F5]">Model Cached (In-Memory)</span>
             </>
           ) : status === 'loading_model' ? (
             <>
-              <span className="w-1.5 h-1.5 rounded-full bg-[#FF5A1F] animate-pulse" />
+              <span className="w-1.5 h-1.5 rounded-full bg-[#FF7A1A] animate-pulse" />
               <span className="text-[#F4F4F5]">Downloading Weights...</span>
             </>
           ) : (
@@ -99,9 +99,9 @@ export function SentenceEvaluator({
                 type="button"
                 onClick={() => handlePresetClick(preset.sentence)}
                 disabled={isBusy}
-                className={`group flex items-center justify-between p-3 rounded-lg border text-left transition-colors cursor-pointer ${
+                className={`group flex items-center justify-between p-3 rounded-lg border text-left transition-all active:scale-[0.99] cursor-pointer ${
                   isEvaluated
-                    ? 'border-[#FF5A1F] bg-[#FF5A1F]/5 text-[#F4F4F5]'
+                    ? 'border-[#FF7A1A] bg-[#FF7A1A]/10 text-[#F4F4F5]'
                     : 'border-[#26262B] bg-[#09090B] hover:border-[#383840] hover:bg-[#1A1A1E] text-[#F4F4F5]'
                 } ${isBusy ? 'opacity-50 cursor-not-allowed' : ''}`}
               >
@@ -109,13 +109,13 @@ export function SentenceEvaluator({
                   <div className="text-xs font-mono font-medium text-[#F4F4F5]">
                     "{preset.label}"
                   </div>
-                  <div className="text-[11px] text-[#9A9AA3] mt-0.5">
+                  <div className="text-[11px] font-mono text-[#9A9AA3] mt-0.5">
                     {preset.note}
                   </div>
                 </div>
                 <ArrowRight
                   className={`w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 ${
-                    isEvaluated ? 'text-[#FF5A1F]' : 'text-[#9A9AA3] group-hover:text-[#F4F4F5]'
+                    isEvaluated ? 'text-[#FF7A1A]' : 'text-[#9A9AA3] group-hover:text-[#F4F4F5]'
                   }`}
                 />
               </button>
@@ -137,7 +137,7 @@ export function SentenceEvaluator({
             onChange={(e) => handleInputChange(e.target.value)}
             placeholder="Enter custom sentence..."
             disabled={isBusy}
-            className="w-full bg-[#09090B] border border-[#26262B] focus:border-[#FF5A1F] rounded-lg px-4 py-3.5 text-base md:text-lg text-[#F4F4F5] placeholder-[#9A9AA3]/40 focus:outline-none focus:ring-1 focus:ring-[#FF5A1F] transition-colors font-mono font-tabular"
+            className="w-full bg-[#09090B] border border-[#26262B] focus:border-[#FF7A1A] rounded-lg px-4 py-3.5 text-base md:text-lg text-[#F4F4F5] placeholder-[#9A9AA3]/40 focus:outline-none focus:ring-1 focus:ring-[#FF7A1A] transition-colors font-mono font-tabular"
           />
         </div>
 
@@ -150,10 +150,10 @@ export function SentenceEvaluator({
           <button
             type="submit"
             disabled={!localInput.trim() || isBusy}
-            className={`w-full sm:w-auto px-6 py-3 rounded-lg font-semibold text-xs uppercase tracking-wider font-mono flex items-center justify-center gap-2 transition-colors cursor-pointer ${
+            className={`w-full sm:w-auto px-6 py-3 rounded-lg font-bold text-xs uppercase tracking-wider font-mono flex items-center justify-center gap-2 transition-all active:scale-[0.98] cursor-pointer shadow-sm ${
               !localInput.trim() || isBusy
                 ? 'bg-[#26262B] text-[#9A9AA3] cursor-not-allowed'
-                : 'bg-[#FF5A1F] hover:bg-[#E04812] text-[#09090B]'
+                : 'bg-[#FF7A1A] hover:bg-[#FF9238] active:bg-[#E6650F] text-[#09090B]'
             }`}
           >
             {isBusy ? (
@@ -168,16 +168,16 @@ export function SentenceEvaluator({
         </div>
       </form>
 
-      {/* First-Time Download Progress (Monochrome + Vermilion) */}
+      {/* First-Time Download Progress (Monochrome + Lighter Orange) */}
       {status === 'loading_model' && progress && (
         <div className="mt-6 p-4 rounded-lg border border-[#26262B] bg-[#09090B] animate-fadeIn">
           <div className="flex items-center justify-between text-xs font-mono text-[#F4F4F5] mb-2">
             <span>Downloading {progress.file}...</span>
-            <span className="font-tabular font-bold text-[#FF5A1F]">{progress.progress}%</span>
+            <span className="font-tabular font-bold text-[#FF7A1A]">{progress.progress}%</span>
           </div>
           <div className="w-full h-1.5 rounded-full bg-[#26262B] overflow-hidden">
             <div
-              className="h-full bg-[#FF5A1F] transition-all duration-200"
+              className="h-full bg-[#FF7A1A] transition-all duration-200"
               style={{ width: `${progress.progress}%` }}
             />
           </div>
@@ -187,10 +187,10 @@ export function SentenceEvaluator({
         </div>
       )}
 
-      {/* Clean Offline / Error Notice (No generic red box) */}
+      {/* Clean Offline / Error Notice */}
       {error && (
-        <div className="mt-6 p-4 rounded-lg border border-[#26262B] border-l-2 border-l-[#FF5A1F] bg-[#09090B] text-xs font-mono text-[#F4F4F5] animate-fadeIn">
-          <div className="text-[#FF5A1F] font-bold uppercase tracking-wider mb-1">Notice</div>
+        <div className="mt-6 p-4 rounded-lg border border-[#26262B] border-l-2 border-l-[#FF7A1A] bg-[#09090B] text-xs font-mono text-[#F4F4F5] animate-fadeIn">
+          <div className="text-[#FF7A1A] font-bold uppercase tracking-wider mb-1">Notice</div>
           <div className="text-[#9A9AA3] leading-relaxed">{error}</div>
         </div>
       )}

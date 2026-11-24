@@ -32,7 +32,7 @@ function generateProceduralNoiseDataUrl(): string {
         const combined = Math.min(255, Math.floor(((v1 + v2 + v3) / 1.75) * 255));
 
         data[idx] = combined;
-        data[idx + 1] = combined; // green channel sampled by shader
+        data[idx + 1] = combined; // green channel sampled by shader .y
         data[idx + 2] = combined;
         data[idx + 3] = 255;
       }
@@ -72,22 +72,22 @@ export function VantaClouds2({ enabled = true }: VantaClouds2Props) {
 
         const proceduralNoiseUrl = generateProceduralNoiseDataUrl();
 
-        // Tuned to monochrome obsidian mist per design system
+        // Tuned to deep obsidian dusk with warm amber highlights
         effectRef.current = CLOUDS2({
           el: vantaRef.current,
           THREE: THREE,
-          mouseControls: false,
-          touchControls: false,
+          mouseControls: true,
+          touchControls: true,
           gyroControls: false,
           minHeight: 200.0,
           minWidth: 200.0,
           scale: 1.0,
-          scaleMobile: 2.0,
-          backgroundColor: 0x09090b, // #09090B
-          skyColor: 0x09090b,        // #09090B
-          cloudColor: 0x18181b,      // #18181B (deep matte charcoal)
-          lightColor: 0x2a2a30,      // #2A2A30 (subtle atmospheric mist highlight)
-          speed: 0.45,
+          scaleMobile: 1.5,
+          backgroundColor: 0x09090b, // #09090B dominant canvas
+          skyColor: 0x111015,        // #111015 deep dusk
+          cloudColor: 0x221f26,      // #221F26 soft volumetric clouds
+          lightColor: 0x5a4638,      // #5A4638 warm amber/orange mist highlight
+          speed: 0.55,
           texturePath: proceduralNoiseUrl || '/gallery/noise.png',
         });
 
@@ -113,17 +113,17 @@ export function VantaClouds2({ enabled = true }: VantaClouds2Props) {
   }, [enabled]);
 
   return (
-    <div className="absolute top-0 left-0 right-0 h-[520px] -z-10 pointer-events-none overflow-hidden select-none">
+    <div className="absolute top-0 left-0 right-0 h-[600px] -z-10 pointer-events-none overflow-hidden select-none">
       {/* Vanta Canvas Container */}
       <div
         ref={vantaRef}
         className={`absolute inset-0 transition-opacity duration-1000 ${
-          enabled && isLoaded ? 'opacity-70' : 'opacity-0'
+          enabled && isLoaded ? 'opacity-75' : 'opacity-0'
         }`}
       />
 
       {/* Seamless bottom fade mask into #09090B canvas */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#09090B]/40 to-[#09090B]" />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#09090B]/30 to-[#09090B]" />
     </div>
   );
 }

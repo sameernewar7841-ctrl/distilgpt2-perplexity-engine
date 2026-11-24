@@ -25,7 +25,7 @@ export function TokenEvaluationTable({
       {/* Section Header */}
       <div className="flex items-center justify-between pb-6 border-b border-[#26262B]">
         <div className="flex items-center gap-3">
-          <span className="font-mono text-xs text-[#FF5A1F] font-bold">02</span>
+          <span className="font-mono text-xs text-[#FF7A1A] font-bold">02</span>
           <h3 className="text-xl md:text-2xl heading-editorial">
             Token-by-Token Probabilities
           </h3>
@@ -44,7 +44,7 @@ export function TokenEvaluationTable({
           {tokens.map((t) => (
             <div
               key={t.index}
-              className="inline-flex items-center gap-2 px-2.5 py-1 rounded border border-[#26262B] bg-[#141417] text-xs font-mono font-tabular text-[#F4F4F5]"
+              className="inline-flex items-center gap-2 px-2.5 py-1 rounded border border-[#26262B] bg-[#141417] text-xs font-mono font-tabular text-[#F4F4F5] hover:border-[#FF7A1A]/40 transition-colors"
             >
               <span className="text-[10px] text-[#9A9AA3]">#{t.index}</span>
               <span className="font-semibold text-[#F4F4F5] bg-[#09090B] px-1 py-0.5 rounded border border-[#26262B]">
@@ -150,10 +150,10 @@ export function TokenEvaluationTable({
             </div>
           </div>
 
-          {/* Step 3 - Final Output Highlighted in #FF5A1F */}
-          <div className="border border-[#FF5A1F]/40 bg-[#09090B] rounded-lg p-4 flex flex-col justify-between">
+          {/* Step 3 - Final Output Highlighted in Lighter Orange #FF7A1A */}
+          <div className="border border-[#FF7A1A]/50 bg-[#09090B] rounded-lg p-4 flex flex-col justify-between shadow-[0_0_15px_rgba(255,122,26,0.05)]">
             <div>
-              <div className="text-[11px] font-mono text-[#FF5A1F] font-bold mb-1">
+              <div className="text-[11px] font-mono text-[#FF7A1A] font-bold mb-1">
                 03 / GEOMETRIC MEAN (PERPLEXITY)
               </div>
               <div className="text-xs text-[#9A9AA3] font-mono mb-3">
@@ -161,7 +161,7 @@ export function TokenEvaluationTable({
               </div>
             </div>
             <div>
-              <div className="text-2xl md:text-3xl font-mono font-black font-tabular text-[#FF5A1F]">
+              <div className="text-2xl md:text-3xl font-mono font-black font-tabular text-[#FF7A1A]">
                 {breakdown.perplexityFormatted}
               </div>
               <div className="text-[10px] text-[#9A9AA3] font-mono mt-1">
@@ -171,15 +171,15 @@ export function TokenEvaluationTable({
           </div>
         </div>
 
-        {/* Plain-English Interpretation Callout (Matte #141417 with 2px #FF5A1F left border) */}
-        <div className="border border-[#26262B] border-l-2 border-l-[#FF5A1F] bg-[#141417] p-4 rounded-lg">
-          <div className="text-xs font-mono uppercase tracking-wider text-[#FF5A1F] mb-1">
+        {/* Plain-English Interpretation Callout */}
+        <div className="border border-[#26262B] border-l-2 border-l-[#FF7A1A] bg-[#141417] p-4 rounded-lg">
+          <div className="text-xs font-mono uppercase tracking-wider text-[#FF7A1A] mb-1">
             Plain-English Interpretation
           </div>
           <div className="text-sm font-medium text-[#F4F4F5]">
             {breakdown.interpretation}
           </div>
-          <div className="text-xs text-[#9A9AA3] mt-1">
+          <div className="text-xs text-[#9A9AA3] mt-1 font-mono">
             Lower perplexity means the model assigned higher probability to this exact sequence. Higher perplexity indicates greater surprise.
           </div>
         </div>

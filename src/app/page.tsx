@@ -42,8 +42,8 @@ export default function HomePage() {
   };
 
   return (
-    <main className="relative min-h-screen bg-[#09090B] text-[#F4F4F5] flex flex-col justify-between selection:bg-[#FF5A1F]/20 selection:text-[#F4F4F5]">
-      {/* Vanta.js Clouds2 Monochrome Obsidian Mist (confined to hero background) */}
+    <main className="relative min-h-screen bg-[#09090B] text-[#F4F4F5] flex flex-col justify-between selection:bg-[#FF7A1A]/20 selection:text-[#FFFFFF]">
+      {/* Vanta.js Clouds2 Twilight Atmosphere */}
       <VantaClouds2 enabled={atmosphereEnabled} />
 
       {/* 1. Sticky Header */}
@@ -51,7 +51,7 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           {/* Minimal Monochrome Geometric Mark + Brand */}
           <div className="flex items-center gap-3">
-            <div className="w-7 h-7 rounded border border-[#26262B] bg-[#141417] flex items-center justify-center font-mono font-bold text-xs text-[#F4F4F5]">
+            <div className="w-7 h-7 rounded border border-[#26262B] bg-[#141417] flex items-center justify-center font-mono font-bold text-xs text-[#FF7A1A]">
               P
             </div>
             <div className="font-mono text-xs tracking-tight flex items-center gap-2">
@@ -63,14 +63,14 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Centered Navigation Tabs (Solid #141417 pill with #FF5A1F active indicator) */}
+          {/* Centered Navigation Tabs */}
           <nav className="flex items-center gap-1 p-1 rounded-lg border border-[#26262B] bg-[#141417]">
             <button
               type="button"
               onClick={() => handleTabChange('model')}
-              className={`px-3 py-1.5 rounded text-xs font-mono transition-colors cursor-pointer ${
+              className={`px-3.5 py-1.5 rounded text-xs font-mono transition-all active:scale-95 cursor-pointer ${
                 activeTab === 'model'
-                  ? 'bg-[#FF5A1F] text-[#09090B] font-bold'
+                  ? 'bg-[#FF7A1A] text-[#09090B] font-bold shadow-sm'
                   : 'text-[#9A9AA3] hover:text-[#F4F4F5] hover:bg-[#09090B]'
               }`}
             >
@@ -79,9 +79,9 @@ export default function HomePage() {
             <button
               type="button"
               onClick={() => handleTabChange('simulator')}
-              className={`px-3 py-1.5 rounded text-xs font-mono transition-colors cursor-pointer ${
+              className={`px-3.5 py-1.5 rounded text-xs font-mono transition-all active:scale-95 cursor-pointer ${
                 activeTab === 'simulator'
-                  ? 'bg-[#FF5A1F] text-[#09090B] font-bold'
+                  ? 'bg-[#FF7A1A] text-[#09090B] font-bold shadow-sm'
                   : 'text-[#9A9AA3] hover:text-[#F4F4F5] hover:bg-[#09090B]'
               }`}
             >
@@ -90,9 +90,9 @@ export default function HomePage() {
             <button
               type="button"
               onClick={() => handleTabChange('math')}
-              className={`px-3 py-1.5 rounded text-xs font-mono transition-colors cursor-pointer ${
+              className={`px-3.5 py-1.5 rounded text-xs font-mono transition-all active:scale-95 cursor-pointer ${
                 activeTab === 'math'
-                  ? 'bg-[#FF5A1F] text-[#09090B] font-bold'
+                  ? 'bg-[#FF7A1A] text-[#09090B] font-bold shadow-sm'
                   : 'text-[#9A9AA3] hover:text-[#F4F4F5] hover:bg-[#09090B]'
               }`}
             >
@@ -105,9 +105,9 @@ export default function HomePage() {
             <button
               type="button"
               onClick={() => setAtmosphereEnabled((prev) => !prev)}
-              className="px-2.5 py-1 rounded border border-[#26262B] bg-[#141417] hover:border-[#383840] text-xs font-mono text-[#9A9AA3] hover:text-[#F4F4F5] transition-colors cursor-pointer"
+              className="px-2.5 py-1 rounded border border-[#26262B] bg-[#141417] hover:border-[#383840] text-xs font-mono text-[#9A9AA3] hover:text-[#F4F4F5] transition-all cursor-pointer active:scale-95"
             >
-              Atmosphere: <span className={atmosphereEnabled ? 'text-[#FF5A1F]' : 'text-[#9A9AA3]'}>{atmosphereEnabled ? 'ON' : 'OFF'}</span>
+              Atmosphere: <span className={atmosphereEnabled ? 'text-[#FF7A1A] font-bold' : 'text-[#9A9AA3]'}>{atmosphereEnabled ? 'ON' : 'OFF'}</span>
             </button>
           </div>
         </div>
@@ -115,23 +115,23 @@ export default function HomePage() {
 
       {/* Main Container */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 w-full flex-1 space-y-10">
-        {/* 2. Hero Section (Above the Fold) */}
+        {/* 2. Hero Section */}
         <section className="pt-4 pb-8 space-y-6">
           <div className="max-w-3xl space-y-4">
-            {/* High-Contrast Solid Editorial H1 */}
+            {/* High-Contrast Editorial Display Headline */}
             <h1 className="text-3xl sm:text-5xl md:text-6xl heading-editorial leading-[1.1] text-[#F4F4F5]">
               Perplexity &amp; Next-Token <br />
-              <span className="text-[#FF5A1F]">Prediction Engine</span>
+              <span className="text-[#FF7A1A]">Prediction Engine</span>
             </h1>
 
-            {/* Concise 2-Line Editorial Subtitle */}
+            {/* Concise Editorial Subtitle */}
             <p className="text-sm md:text-base font-mono text-[#9A9AA3] leading-relaxed max-w-2xl">
               Client-side causal language model evaluator running Xenova/distilgpt2 (q8 ONNX).
               Computes token conditional probabilities, stable log-softmax, and 3-step geometric mean perplexity.
             </p>
           </div>
 
-          {/* Single Horizontal 4-Column Architectural Stat Bar */}
+          {/* 4-Column Architectural Stat Bar */}
           <div className="grid grid-cols-2 lg:grid-cols-4 border border-[#26262B] bg-[#141417] rounded-xl overflow-hidden divide-y lg:divide-y-0 lg:divide-x divide-[#26262B] font-mono">
             <div className="p-4 sm:p-5">
               <div className="text-[10px] text-[#9A9AA3] uppercase tracking-wider">01 / VOCAB SIZE</div>
@@ -182,7 +182,7 @@ export default function HomePage() {
             ) : (
               <div className="border border-[#26262B] bg-[#141417] rounded-xl p-8 text-center font-mono">
                 <div className="text-xs text-[#9A9AA3]">
-                  Select a preset sequence above or click <span className="text-[#F4F4F5]">"Evaluate Perplexity →"</span> to execute the forward pass.
+                  Select a preset sequence above or click <span className="text-[#FF7A1A] font-semibold">"Evaluate Perplexity →"</span> to execute the forward pass.
                 </div>
               </div>
             )}
@@ -206,13 +206,13 @@ export default function HomePage() {
       <footer className="border-t border-[#26262B] bg-[#09090B] py-6 mt-16 font-mono text-xs text-[#9A9AA3]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3">
           <div className="flex items-center gap-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#FF5A1F]" />
+            <span className="w-1.5 h-1.5 rounded-full bg-[#FF7A1A]" />
             <span>Xenova/distilgpt2 (q8) Client-Side Inference</span>
           </div>
           <div className="flex items-center gap-4">
-            <span>Lenis Scroll</span>
+            <span>Space Grotesk &amp; JetBrains Mono</span>
             <span>•</span>
-            <span>Vanta Obsidian Mist</span>
+            <span>Lenis Scroll</span>
             <span>•</span>
             <span className="text-[#F4F4F5]">Vercel Deployed</span>
           </div>

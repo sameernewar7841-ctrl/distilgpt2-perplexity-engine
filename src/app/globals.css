@@ -8,9 +8,11 @@
   --border: #26262B;
   --text-primary: #F4F4F5;
   --text-secondary: #9A9AA3;
-  --accent: #FF5A1F;
-  --accent-hover: #E04812;
-  --accent-tint: rgba(255, 90, 31, 0.10);
+  --accent: #FF7A1A;
+  --accent-hover: #FF9238;
+  --accent-active: #E6650F;
+  --accent-tint: rgba(255, 122, 26, 0.12);
+  --accent-glow: rgba(255, 122, 26, 0.25);
 }
 
 @theme inline {
@@ -81,7 +83,7 @@ body {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #FF5A1F;
+  background: #FF7A1A;
 }
 
 /* Subtle fade in without bounce */
@@ -100,8 +102,19 @@ body {
   animation: fadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* Selection Color */
+/* Selection Color with warm orange tint */
 ::selection {
-  background-color: rgba(255, 90, 31, 0.25);
-  color: #F4F4F5;
+  background-color: rgba(255, 122, 26, 0.25);
+  color: #FFFFFF;
+}
+
+/* Lenis Top Progress Bar */
+.lenis-scroll-indicator {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background: #FF7A1A;
+  z-index: 100;
+  transition: width 0.05s linear;
 }

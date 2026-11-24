@@ -19,10 +19,10 @@ export function useLenisScroll() {
 
 export function SmoothScroll({ children }: { children: React.ReactNode }) {
   const [lenisInstance, setLenisInstance] = useState<Lenis | null>(null);
+  const [scrollProgress, setScrollProgress] = useState(0);
   const lenisRef = useRef<Lenis | null>(null);
 
   useEffect(() => {
-    // Lenis instance with Swiss-smooth native feel
     const lenis = new Lenis({
       duration: 0.9,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -36,6 +36,12 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
     lenisRef.current = lenis;
     setLenisInstance(lenis);
 
+    lenis.on('scroll', (e: any) => {
+      if (typeof e.progress === 'number') {
+        setScrollProgress(Math.min(100, Math.max(0, e.progress * 100)));
+      }
+    });
+
     let animationFrameId: number;
 
     function raf(time: number) {
@@ -45,7 +51,6 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
 
     animationFrameId = requestAnimationFrame(raf);
 
-    // Initial resize after DOM settles
     const timeoutId = setTimeout(() => {
       lenis.resize();
     }, 100);
@@ -66,6 +71,11 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
 
   return (
     <LenisContext.Provider value={{ lenis: lenisInstance, resize }}>
+      {/* Lenis Top Scroll Progress Bar */}
+      <div
+        className="lenis-scroll-indicator"
+        style={{ width: `${scrollProgress}%` }}
+      />
       {children}
     </LenisContext.Provider>
   );
