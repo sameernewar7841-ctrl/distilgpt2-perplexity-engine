@@ -8,11 +8,11 @@
   --border: #26262B;
   --text-primary: #F4F4F5;
   --text-secondary: #9A9AA3;
-  --accent: #FF7A1A;
-  --accent-hover: #FF9238;
-  --accent-active: #E6650F;
-  --accent-tint: rgba(255, 122, 26, 0.12);
-  --accent-glow: rgba(255, 122, 26, 0.25);
+  --accent: #FFAE52;
+  --accent-hover: #FFBE73;
+  --accent-active: #F59F40;
+  --accent-tint: rgba(255, 174, 82, 0.12);
+  --accent-glow: rgba(255, 174, 82, 0.25);
 }
 
 @theme inline {
@@ -83,10 +83,10 @@ body {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #FF7A1A;
+  background: #FFAE52;
 }
 
-/* Subtle fade in without bounce */
+/* Subtle fade in */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -102,9 +102,9 @@ body {
   animation: fadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* Selection Color with warm orange tint */
+/* Selection Color with warm apricot-orange tint */
 ::selection {
-  background-color: rgba(255, 122, 26, 0.25);
+  background-color: rgba(255, 174, 82, 0.25);
   color: #FFFFFF;
 }
 
@@ -114,7 +114,8 @@ body {
   top: 0;
   left: 0;
   height: 2px;
-  background: #FF7A1A;
+  background: #FFAE52;
+  box-shadow: 0 0 8px rgba(255, 174, 82, 0.6);
   z-index: 100;
   transition: width 0.05s linear;
 }

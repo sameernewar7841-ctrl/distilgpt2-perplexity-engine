@@ -9,7 +9,7 @@ export function MathTheoryExplorer() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-[#26262B]">
         <div>
           <div className="flex items-center gap-3">
-            <span className="font-mono text-xs text-[#FF7A1A] font-bold">05</span>
+            <span className="font-mono text-xs text-[#FFAE52] font-bold">05</span>
             <h2 className="text-xl md:text-2xl heading-editorial">
               Mathematical Formulations &amp; Algorithms
             </h2>
@@ -30,14 +30,14 @@ export function MathTheoryExplorer() {
         <div className="border border-[#26262B] bg-[#141417] rounded-xl p-6 flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between mb-3">
-              <span className="font-mono text-xs font-bold text-[#FF7A1A]">01</span>
+              <span className="font-mono text-xs font-bold text-[#FFAE52]">01</span>
               <span className="text-[11px] font-mono uppercase tracking-wider text-[#9A9AA3]">Sequence Preparation</span>
             </div>
             <h3 className="text-base font-semibold text-[#F4F4F5] heading-editorial mb-2">
               Context Prepending &amp; Forward Pass
             </h3>
             <p className="text-xs font-mono text-[#9A9AA3] leading-relaxed mb-4">
-              Prepends GPT-2's <code className="text-[#F4F4F5] bg-[#09090B] px-1 py-0.5 rounded border border-[#26262B]">&lt;|endoftext|&gt;</code> token (ID <code className="text-[#FF7A1A]">50256</code>) so token #1 has causal prior context to be evaluated against:
+              Prepends GPT-2's <code className="text-[#F4F4F5] bg-[#09090B] px-1 py-0.5 rounded border border-[#26262B]">&lt;|endoftext|&gt;</code> token (ID <code className="text-[#FFAE52]">50256</code>) so token #1 has causal prior context to be evaluated against:
             </p>
           </div>
           <div className="bg-[#09090B] rounded-lg p-3.5 border border-[#26262B] font-mono text-xs text-[#F4F4F5] space-y-1">
@@ -53,7 +53,7 @@ export function MathTheoryExplorer() {
         <div className="border border-[#26262B] bg-[#141417] rounded-xl p-6 flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between mb-3">
-              <span className="font-mono text-xs font-bold text-[#FF7A1A]">02</span>
+              <span className="font-mono text-xs font-bold text-[#FFAE52]">02</span>
               <span className="text-[11px] font-mono uppercase tracking-wider text-[#9A9AA3]">Numerical Stability</span>
             </div>
             <h3 className="text-base font-semibold text-[#F4F4F5] heading-editorial mb-2">
@@ -75,7 +75,7 @@ export function MathTheoryExplorer() {
         <div className="border border-[#26262B] bg-[#141417] rounded-xl p-6 flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between mb-3">
-              <span className="font-mono text-xs font-bold text-[#FF7A1A]">03</span>
+              <span className="font-mono text-xs font-bold text-[#FFAE52]">03</span>
               <span className="text-[11px] font-mono uppercase tracking-wider text-[#9A9AA3]">Autoregressive Indexing</span>
             </div>
             <h3 className="text-base font-semibold text-[#F4F4F5] heading-editorial mb-2">
@@ -98,7 +98,7 @@ export function MathTheoryExplorer() {
         <div className="border border-[#26262B] bg-[#141417] rounded-xl p-6 flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between mb-3">
-              <span className="font-mono text-xs font-bold text-[#FF7A1A]">04</span>
+              <span className="font-mono text-xs font-bold text-[#FFAE52]">04</span>
               <span className="text-[11px] font-mono uppercase tracking-wider text-[#9A9AA3]">Loss &amp; Geometric Mean</span>
             </div>
             <h3 className="text-base font-semibold text-[#F4F4F5] heading-editorial mb-2">
@@ -120,7 +120,7 @@ export function MathTheoryExplorer() {
       {/* 05 - Full Width Architectural Block */}
       <div className="border border-[#26262B] bg-[#141417] rounded-xl p-6">
         <div className="flex items-center justify-between mb-3">
-          <span className="font-mono text-xs font-bold text-[#FF7A1A]">05</span>
+          <span className="font-mono text-xs font-bold text-[#FFAE52]">05</span>
           <span className="text-[11px] font-mono uppercase tracking-wider text-[#9A9AA3]">Zero-Cost Continuation</span>
         </div>
         <h3 className="text-base font-semibold text-[#F4F4F5] heading-editorial mb-2">

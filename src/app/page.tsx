@@ -42,7 +42,7 @@ export default function HomePage() {
   };
 
   return (
-    <main className="relative min-h-screen bg-[#09090B] text-[#F4F4F5] flex flex-col justify-between selection:bg-[#FF7A1A]/20 selection:text-[#FFFFFF]">
+    <main className="relative min-h-screen bg-[#09090B] text-[#F4F4F5] flex flex-col justify-between selection:bg-[#FFAE52]/20 selection:text-[#FFFFFF]">
       {/* Vanta.js Clouds2 Twilight Atmosphere */}
       <VantaClouds2 enabled={atmosphereEnabled} />
 
@@ -51,7 +51,7 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           {/* Minimal Monochrome Geometric Mark + Brand */}
           <div className="flex items-center gap-3">
-            <div className="w-7 h-7 rounded border border-[#26262B] bg-[#141417] flex items-center justify-center font-mono font-bold text-xs text-[#FF7A1A]">
+            <div className="w-7 h-7 rounded border border-[#26262B] bg-[#141417] flex items-center justify-center font-mono font-bold text-xs text-[#FFAE52]">
               P
             </div>
             <div className="font-mono text-xs tracking-tight flex items-center gap-2">
@@ -70,7 +70,7 @@ export default function HomePage() {
               onClick={() => handleTabChange('model')}
               className={`px-3.5 py-1.5 rounded text-xs font-mono transition-all active:scale-95 cursor-pointer ${
                 activeTab === 'model'
-                  ? 'bg-[#FF7A1A] text-[#09090B] font-bold shadow-sm'
+                  ? 'bg-[#FFAE52] text-[#09090B] font-bold shadow-sm'
                   : 'text-[#9A9AA3] hover:text-[#F4F4F5] hover:bg-[#09090B]'
               }`}
             >
@@ -81,7 +81,7 @@ export default function HomePage() {
               onClick={() => handleTabChange('simulator')}
               className={`px-3.5 py-1.5 rounded text-xs font-mono transition-all active:scale-95 cursor-pointer ${
                 activeTab === 'simulator'
-                  ? 'bg-[#FF7A1A] text-[#09090B] font-bold shadow-sm'
+                  ? 'bg-[#FFAE52] text-[#09090B] font-bold shadow-sm'
                   : 'text-[#9A9AA3] hover:text-[#F4F4F5] hover:bg-[#09090B]'
               }`}
             >
@@ -92,7 +92,7 @@ export default function HomePage() {
               onClick={() => handleTabChange('math')}
               className={`px-3.5 py-1.5 rounded text-xs font-mono transition-all active:scale-95 cursor-pointer ${
                 activeTab === 'math'
-                  ? 'bg-[#FF7A1A] text-[#09090B] font-bold shadow-sm'
+                  ? 'bg-[#FFAE52] text-[#09090B] font-bold shadow-sm'
                   : 'text-[#9A9AA3] hover:text-[#F4F4F5] hover:bg-[#09090B]'
               }`}
             >
@@ -107,7 +107,7 @@ export default function HomePage() {
               onClick={() => setAtmosphereEnabled((prev) => !prev)}
               className="px-2.5 py-1 rounded border border-[#26262B] bg-[#141417] hover:border-[#383840] text-xs font-mono text-[#9A9AA3] hover:text-[#F4F4F5] transition-all cursor-pointer active:scale-95"
             >
-              Atmosphere: <span className={atmosphereEnabled ? 'text-[#FF7A1A] font-bold' : 'text-[#9A9AA3]'}>{atmosphereEnabled ? 'ON' : 'OFF'}</span>
+              Atmosphere: <span className={atmosphereEnabled ? 'text-[#FFAE52] font-bold' : 'text-[#9A9AA3]'}>{atmosphereEnabled ? 'ON' : 'OFF'}</span>
             </button>
           </div>
         </div>
@@ -119,9 +119,9 @@ export default function HomePage() {
         <section className="pt-4 pb-8 space-y-6">
           <div className="max-w-3xl space-y-4">
             {/* High-Contrast Editorial Display Headline */}
-            <h1 className="text-3xl sm:text-5xl md:text-6xl heading-editorial leading-[1.1] text-[#F4F4F5]">
+            <h1 className="text-3xl sm:text-5xl md:text-6xl heading-editorial leading-[1.08] text-[#F4F4F5]">
               Perplexity &amp; Next-Token <br />
-              <span className="text-[#FF7A1A]">Prediction Engine</span>
+              <span className="text-[#FFAE52]">Prediction Engine</span>
             </h1>
 
             {/* Concise Editorial Subtitle */}
@@ -182,7 +182,7 @@ export default function HomePage() {
             ) : (
               <div className="border border-[#26262B] bg-[#141417] rounded-xl p-8 text-center font-mono">
                 <div className="text-xs text-[#9A9AA3]">
-                  Select a preset sequence above or click <span className="text-[#FF7A1A] font-semibold">"Evaluate Perplexity →"</span> to execute the forward pass.
+                  Select a preset sequence above or click <span className="text-[#FFAE52] font-semibold">"Evaluate Perplexity →"</span> to execute the forward pass.
                 </div>
               </div>
             )}
@@ -206,11 +206,11 @@ export default function HomePage() {
       <footer className="border-t border-[#26262B] bg-[#09090B] py-6 mt-16 font-mono text-xs text-[#9A9AA3]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3">
           <div className="flex items-center gap-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#FF7A1A]" />
+            <span className="w-1.5 h-1.5 rounded-full bg-[#FFAE52]" />
             <span>Xenova/distilgpt2 (q8) Client-Side Inference</span>
           </div>
           <div className="flex items-center gap-4">
-            <span>Space Grotesk &amp; JetBrains Mono</span>
+            <span>Plus Jakarta Sans &amp; JetBrains Mono</span>
             <span>•</span>
             <span>Lenis Scroll</span>
             <span>•</span>

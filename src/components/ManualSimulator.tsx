@@ -109,7 +109,7 @@ export function ManualSimulator() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-[#26262B]">
         <div>
           <div className="flex items-center gap-3">
-            <span className="font-mono text-xs text-[#FF7A1A] font-bold">04</span>
+            <span className="font-mono text-xs text-[#FFAE52] font-bold">04</span>
             <h2 className="text-xl md:text-2xl heading-editorial">
               Try It by Hand (Offline Simulator)
             </h2>
@@ -121,7 +121,7 @@ export function ManualSimulator() {
 
         {/* Status Dot */}
         <div className="flex items-center gap-2 font-mono text-xs text-[#9A9AA3]">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#FF7A1A]" />
+          <span className="w-1.5 h-1.5 rounded-full bg-[#FFAE52]" />
           <span className="text-[#F4F4F5]">100% Offline Capable</span>
         </div>
       </div>
@@ -134,7 +134,7 @@ export function ManualSimulator() {
           onClick={() => handleApplyPreset('p1')}
           className={`px-3 py-1.5 rounded text-xs font-mono transition-all active:scale-95 cursor-pointer ${
             activePreset === 'p1'
-              ? 'bg-[#FF7A1A] text-[#09090B] font-bold'
+              ? 'bg-[#FFAE52] text-[#09090B] font-bold'
               : 'border border-[#26262B] bg-[#09090B] text-[#F4F4F5] hover:bg-[#1A1A1E]'
           }`}
         >
@@ -145,7 +145,7 @@ export function ManualSimulator() {
           onClick={() => handleApplyPreset('p2')}
           className={`px-3 py-1.5 rounded text-xs font-mono transition-all active:scale-95 cursor-pointer ${
             activePreset === 'p2'
-              ? 'bg-[#FF7A1A] text-[#09090B] font-bold'
+              ? 'bg-[#FFAE52] text-[#09090B] font-bold'
               : 'border border-[#26262B] bg-[#09090B] text-[#F4F4F5] hover:bg-[#1A1A1E]'
           }`}
         >
@@ -156,7 +156,7 @@ export function ManualSimulator() {
           onClick={() => handleApplyPreset('p3')}
           className={`px-3 py-1.5 rounded text-xs font-mono transition-all active:scale-95 cursor-pointer ${
             activePreset === 'p3'
-              ? 'bg-[#FF7A1A] text-[#09090B] font-bold'
+              ? 'bg-[#FFAE52] text-[#09090B] font-bold'
               : 'border border-[#26262B] bg-[#09090B] text-[#F4F4F5] hover:bg-[#1A1A1E]'
           }`}
         >
@@ -166,8 +166,8 @@ export function ManualSimulator() {
 
       {/* Validation Error Notice */}
       {validationError && (
-        <div className="p-4 rounded-lg border border-[#26262B] border-l-2 border-l-[#FF7A1A] bg-[#09090B] text-xs font-mono text-[#F4F4F5]">
-          <div className="text-[#FF7A1A] font-bold uppercase mb-1">Validation Notice</div>
+        <div className="p-4 rounded-lg border border-[#26262B] border-l-2 border-l-[#FFAE52] bg-[#09090B] text-xs font-mono text-[#F4F4F5]">
+          <div className="text-[#FFAE52] font-bold uppercase mb-1">Validation Notice</div>
           <div className="text-[#9A9AA3]">{validationError}</div>
         </div>
       )}
@@ -204,7 +204,7 @@ export function ManualSimulator() {
             <button
               type="button"
               onClick={() => handleApplyPreset('p1')}
-              className="mt-3 px-4 py-2 rounded bg-[#FF7A1A] text-[#09090B] text-xs font-mono font-bold"
+              className="mt-3 px-4 py-2 rounded bg-[#FFAE52] text-[#09090B] text-xs font-mono font-bold"
             >
               Load Default Preset
             </button>
@@ -240,7 +240,7 @@ export function ManualSimulator() {
                           value={row.token}
                           onChange={(e) => handleRowChange(row.id, 'token', e.target.value)}
                           placeholder="word"
-                          className="w-full bg-[#141417] border border-[#26262B] focus:border-[#FF7A1A] rounded px-2.5 py-1 text-xs text-[#F4F4F5] font-mono focus:outline-none focus:ring-1 focus:ring-[#FF7A1A] transition-colors"
+                          className="w-full bg-[#141417] border border-[#26262B] focus:border-[#FFAE52] rounded px-2.5 py-1 text-xs text-[#F4F4F5] font-mono focus:outline-none focus:ring-1 focus:ring-[#FFAE52] transition-colors"
                         />
                       </td>
                       <td className="py-2.5 px-4">
@@ -251,8 +251,8 @@ export function ManualSimulator() {
                           placeholder="0.0 - 1.0"
                           className={`w-full bg-[#141417] border rounded px-2.5 py-1 text-xs font-mono focus:outline-none transition-colors ${
                             isRowValid
-                              ? 'border-[#26262B] text-[#F4F4F5] focus:border-[#FF7A1A] focus:ring-1 focus:ring-[#FF7A1A]'
-                              : 'border-[#FF7A1A] text-[#FF7A1A]'
+                              ? 'border-[#26262B] text-[#F4F4F5] focus:border-[#FFAE52] focus:ring-1 focus:ring-[#FFAE52]'
+                              : 'border-[#FFAE52] text-[#FFAE52]'
                           }`}
                         />
                       </td>
@@ -265,7 +265,7 @@ export function ManualSimulator() {
                         <button
                           type="button"
                           onClick={() => handleDeleteRow(row.id)}
-                          className="p-1 rounded text-[#9A9AA3] hover:text-[#FF7A1A] transition-colors cursor-pointer"
+                          className="p-1 rounded text-[#9A9AA3] hover:text-[#FFAE52] transition-colors cursor-pointer"
                           title="Remove row"
                         >
                           <Trash2 className="w-3.5 h-3.5" />
@@ -286,7 +286,7 @@ export function ManualSimulator() {
           {/* Exact Classroom Mathematical Steps */}
           <div className="p-4 rounded-lg border border-[#26262B] bg-[#09090B] space-y-2 font-mono text-xs">
             <div className="text-[#F4F4F5] flex flex-wrap items-center gap-1.5">
-              <span className="text-[#FF7A1A] font-bold">Step 1:</span>
+              <span className="text-[#FFAE52] font-bold">Step 1:</span>
               <span className="text-[#9A9AA3]">Multiply all the 1/P values:</span>
               <span className="text-[#F4F4F5] font-semibold">{multiplicationFormula}</span>
               <span className="text-[#9A9AA3]">=</span>
@@ -294,18 +294,18 @@ export function ManualSimulator() {
             </div>
 
             <div className="text-[#F4F4F5] flex items-center gap-1.5">
-              <span className="text-[#FF7A1A] font-bold">Step 2:</span>
+              <span className="text-[#FFAE52] font-bold">Step 2:</span>
               <span className="text-[#9A9AA3]">Count the tokens:</span>
               <span className="text-[#F4F4F5] font-bold">N = {breakdown.tokenCount}</span>
             </div>
 
             <div className="text-[#F4F4F5] flex items-center gap-1.5">
-              <span className="text-[#FF7A1A] font-bold">Step 3:</span>
+              <span className="text-[#FFAE52] font-bold">Step 3:</span>
               <span className="text-[#9A9AA3]">Take the N-th root:</span>
               <span className="text-[#F4F4F5]">
                 ({breakdown.productInversePFormatted})<sup>1/{breakdown.tokenCount}</sup> =
               </span>
-              <span className="text-[#FF7A1A] font-bold font-tabular text-sm">
+              <span className="text-[#FFAE52] font-bold font-tabular text-sm">
                 {breakdown.perplexityFormatted}
               </span>
             </div>
@@ -341,24 +341,24 @@ export function ManualSimulator() {
               </div>
             </div>
 
-            <div className="border border-[#FF7A1A]/50 bg-[#09090B] rounded-lg p-4 flex flex-col justify-between shadow-[0_0_15px_rgba(255,122,26,0.05)]">
+            <div className="border border-[#FFAE52]/50 bg-[#09090B] rounded-lg p-4 flex flex-col justify-between shadow-[0_0_15px_rgba(255,160,72,0.06)]">
               <div>
-                <div className="text-[11px] font-mono text-[#FF7A1A] font-bold mb-1">
+                <div className="text-[11px] font-mono text-[#FFAE52] font-bold mb-1">
                   03 / GEOMETRIC MEAN (PERPLEXITY)
                 </div>
                 <div className="text-xs text-[#9A9AA3] font-mono mb-3">
                   (Product)^(1/N) = e^(loss)
                 </div>
               </div>
-              <div className="text-2xl md:text-3xl font-mono font-black font-tabular text-[#FF7A1A]">
+              <div className="text-2xl md:text-3xl font-mono font-black font-tabular text-[#FFAE52]">
                 {breakdown.perplexityFormatted}
               </div>
             </div>
           </div>
 
-          {/* Clean Matte Interpretation Callout (2px #FF7A1A left border) */}
-          <div className="border border-[#26262B] border-l-2 border-l-[#FF7A1A] bg-[#141417] p-4 rounded-lg font-mono text-xs">
-            <div className="text-[#FF7A1A] font-bold uppercase tracking-wider mb-1">
+          {/* Clean Matte Interpretation Callout (2px #FFAE52 left border) */}
+          <div className="border border-[#26262B] border-l-2 border-l-[#FFAE52] bg-[#141417] p-4 rounded-lg font-mono text-xs">
+            <div className="text-[#FFAE52] font-bold uppercase tracking-wider mb-1">
               Pedagogical Interpretation
             </div>
             <div className="text-sm font-medium text-[#F4F4F5]">

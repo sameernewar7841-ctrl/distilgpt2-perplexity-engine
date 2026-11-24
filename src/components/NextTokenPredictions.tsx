@@ -22,7 +22,7 @@ export function NextTokenPredictions({
       {/* Header */}
       <div className="flex items-center justify-between pb-6 border-b border-[#26262B]">
         <div className="flex items-center gap-3">
-          <span className="font-mono text-xs text-[#FF7A1A] font-bold">03</span>
+          <span className="font-mono text-xs text-[#FFAE52] font-bold">03</span>
           <h3 className="text-xl md:text-2xl heading-editorial">
             Next-Token Predictions
           </h3>
@@ -51,7 +51,7 @@ export function NextTokenPredictions({
               key={c.rank}
               className={`p-3.5 rounded-lg border transition-all relative overflow-hidden flex flex-col sm:flex-row sm:items-center justify-between gap-3 ${
                 isTop1
-                  ? 'border-[#FF7A1A]/50 bg-[#09090B] shadow-[0_0_15px_rgba(255,122,26,0.03)]'
+                  ? 'border-[#FFAE52]/50 bg-[#09090B] shadow-[0_0_15px_rgba(255,160,72,0.04)]'
                   : 'border-[#26262B] bg-[#09090B] hover:border-[#383840]'
               }`}
             >
@@ -66,7 +66,7 @@ export function NextTokenPredictions({
                 <span
                   className={`w-6 h-6 rounded flex items-center justify-center font-bold text-xs font-tabular ${
                     isTop1
-                      ? 'bg-[#FF7A1A] text-[#09090B]'
+                      ? 'bg-[#FFAE52] text-[#09090B]'
                       : 'bg-[#141417] text-[#9A9AA3] border border-[#26262B]'
                   }`}
                 >
@@ -86,7 +86,7 @@ export function NextTokenPredictions({
               {/* Right Column: Probabilities & Actions */}
               <div className="flex items-center gap-4 z-10 self-end sm:self-center text-xs font-tabular">
                 <div className="text-right">
-                  <div className={`font-bold ${isTop1 ? 'text-[#FF7A1A]' : 'text-[#F4F4F5]'}`}>
+                  <div className={`font-bold ${isTop1 ? 'text-[#FFAE52]' : 'text-[#F4F4F5]'}`}>
                     {c.probPercent}
                   </div>
                   <div className="text-[10px] text-[#9A9AA3]">
@@ -110,7 +110,7 @@ export function NextTokenPredictions({
                       const raw = c.token.replace(/␣/g, ' ').replace(/↵/g, '\n').replace(/⇥/g, '\t');
                       onAppendToken(raw);
                     }}
-                    className="p-1.5 rounded border border-[#26262B] bg-[#141417] hover:border-[#FF7A1A]/40 hover:text-[#FF7A1A] text-[#9A9AA3] transition-colors cursor-pointer active:scale-95"
+                    className="p-1.5 rounded border border-[#26262B] bg-[#141417] hover:border-[#FFAE52]/50 hover:text-[#FFAE52] text-[#9A9AA3] transition-colors cursor-pointer active:scale-95"
                     title={`Append "${c.token}" to sentence`}
                   >
                     <Plus className="w-3.5 h-3.5" />

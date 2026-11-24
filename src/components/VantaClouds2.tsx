@@ -72,7 +72,7 @@ export function VantaClouds2({ enabled = true }: VantaClouds2Props) {
 
         const proceduralNoiseUrl = generateProceduralNoiseDataUrl();
 
-        // Tuned to deep obsidian dusk with warm amber highlights
+        // Tuned to atmospheric dusk with visible volumetric clouds and light warm amber-apricot ambient light
         effectRef.current = CLOUDS2({
           el: vantaRef.current,
           THREE: THREE,
@@ -84,10 +84,10 @@ export function VantaClouds2({ enabled = true }: VantaClouds2Props) {
           scale: 1.0,
           scaleMobile: 1.5,
           backgroundColor: 0x09090b, // #09090B dominant canvas
-          skyColor: 0x111015,        // #111015 deep dusk
-          cloudColor: 0x221f26,      // #221F26 soft volumetric clouds
-          lightColor: 0x5a4638,      // #5A4638 warm amber/orange mist highlight
-          speed: 0.55,
+          skyColor: 0x16141c,        // #16141C dusky atmospheric sky
+          cloudColor: 0x302a36,      // #302A36 visible volumetric cloud bodies
+          lightColor: 0x8e6e50,      // #8E6E50 warm golden-apricot twilight light
+          speed: 0.70,
           texturePath: proceduralNoiseUrl || '/gallery/noise.png',
         });
 
@@ -113,12 +113,12 @@ export function VantaClouds2({ enabled = true }: VantaClouds2Props) {
   }, [enabled]);
 
   return (
-    <div className="absolute top-0 left-0 right-0 h-[600px] -z-10 pointer-events-none overflow-hidden select-none">
+    <div className="absolute top-0 left-0 right-0 h-[640px] -z-10 pointer-events-none overflow-hidden select-none">
       {/* Vanta Canvas Container */}
       <div
         ref={vantaRef}
         className={`absolute inset-0 transition-opacity duration-1000 ${
-          enabled && isLoaded ? 'opacity-75' : 'opacity-0'
+          enabled && isLoaded ? 'opacity-85' : 'opacity-0'
         }`}
       />
 
